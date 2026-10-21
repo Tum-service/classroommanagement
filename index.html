@@ -54,56 +54,92 @@
   .pop { animation: pop .16s ease-out; }
   @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   .slide-up { animation: slideUp .2s ease-out; }
-  details > summary { list-style: none; cursor: pointer; }
-  details > summary::-webkit-details-marker { display: none; }
-  details[open] .chev { transform: rotate(180deg); }
-  .chev { transition: transform .18s; }
 </style>
 </head>
 
 <body class="text-[#111827] antialiased">
 
 <!-- ============================================================
-     VIEW 1: AUTHENTICATION
+     VIEW 1A: TEACHER AUTH (หน้าหลัก)
 ============================================================ -->
 <div id="authView" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F9FAFB] overflow-y-auto">
   <div class="w-full max-w-md my-8">
     <div class="text-center mb-6">
       <div class="w-20 h-20 bg-[#FDE047] border-2 border-black shadow-[4px_4px_0_#000] rounded-2xl grid place-items-center text-5xl mx-auto mb-4">🐻</div>
       <h1 class="text-3xl font-bold">KruBoard</h1>
-      <p class="text-sm text-gray-500 mt-1">ระบบจัดการห้องเรียนสำหรับครูและนักเรียน</p>
+      <p class="text-sm text-gray-500 mt-1">ระบบจัดการห้องเรียนสำหรับคุณครู</p>
     </div>
 
     <div class="nb-card p-6">
-      <!-- Main Tabs -->
       <div class="flex gap-2 mb-6">
         <button id="tabLogin" class="nb-btn flex-1 bg-[#FDE047]" onclick="switchAuthTab('login')">Sign In</button>
-        <button id="tabRegister" class="nb-btn flex-1 bg-white" onclick="switchAuthTab('register')">Sign Up</button>
+        <button id="tabRegister" class="nb-btn flex-1 bg-white" onclick="switchAuthTab('register')">Sign Up (ครู)</button>
       </div>
 
-      <!-- Login Form -->
+      <!-- Login -->
       <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
         <div><label class="text-xs font-bold">อีเมล</label><input type="email" id="loginEmail" class="nb-input mt-1" required placeholder="email@school.ac.th"></div>
         <div><label class="text-xs font-bold">รหัสผ่าน</label><input type="password" id="loginPass" class="nb-input mt-1" required placeholder="••••••••"></div>
         <button type="submit" class="nb-btn nb-btn-k w-full !py-3">เข้าสู่ระบบ</button>
       </form>
 
-      <!-- Register Form -->
+      <!-- Register (Teacher Only) -->
       <form id="registerForm" class="space-y-4 hidden" onsubmit="handleRegister(event)">
-        <!-- Role Selection -->
-        <div class="flex gap-2 mb-4 p-1 bg-gray-100 rounded-lg border-2 border-black">
-          <button type="button" id="btnRegTeacher" class="flex-1 py-2 text-sm font-bold rounded-md transition bg-white shadow-[2px_2px_0_#000] border-2 border-black" onclick="setRegRole('teacher')">👩‍🏫 ครู</button>
-          <button type="button" id="btnRegStudent" class="flex-1 py-2 text-sm font-bold rounded-md transition text-gray-500" onclick="setRegRole('student')">🧑‍🎓 นักเรียน</button>
+        <div class="bg-yellow-100 p-3 rounded border-2 border-black mb-2">
+          <p class="text-xs font-bold text-center">สมัครสมาชิกสำหรับ "ครู" เท่านั้น<br><span class="font-normal text-gray-600">(นักเรียนเข้าใช้งานผ่านลิงก์ที่ครูส่งให้)</span></p>
         </div>
-
-        <div><label class="text-xs font-bold">ชื่อ-นามสกุล</label><input type="text" id="regName" class="nb-input mt-1" required placeholder="เช่น ครูสมศรี / น้องแนน"></div>
+        <div><label class="text-xs font-bold">ชื่อ-นามสกุล</label><input type="text" id="regName" class="nb-input mt-1" required placeholder="เช่น ครูสมศรี"></div>
         <div><label class="text-xs font-bold">อีเมล</label><input type="email" id="regEmail" class="nb-input mt-1" required placeholder="email@school.ac.th"></div>
         <div><label class="text-xs font-bold">รหัสผ่าน</label><input type="password" id="regPass" class="nb-input mt-1" required placeholder="••••••••"></div>
-        
-        <input type="hidden" id="regRole" value="teacher">
-
-        <button type="submit" class="nb-btn nb-btn-y w-full !py-3">สมัครสมาชิก</button>
+        <button type="submit" class="nb-btn nb-btn-y w-full !py-3">สมัครสมาชิก (ครู)</button>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     VIEW 1B: STUDENT AUTH (เข้าผ่านลิงก์เชิญ)
+============================================================ -->
+<div id="inviteView" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F9FAFB] overflow-y-auto hidden">
+  <div class="w-full max-w-md my-8">
+    <div class="text-center mb-6">
+      <div class="text-5xl mb-4">🎓</div>
+      <h1 class="text-2xl font-bold">เข้าร่วมห้องเรียน</h1>
+      <p class="text-sm text-gray-500 mt-1">คุณได้รับเชิญให้เข้าร่วมห้องเรียน <br><span id="inviteRoomName" class="font-bold text-black text-lg"></span></p>
+      <p class="text-xs text-gray-500 mt-1">ครูผู้สอน: <span id="inviteTeacherName" class="font-bold"></span></p>
+    </div>
+
+    <div class="nb-card p-6">
+      <!-- ถ้ามี User ล็อกอินอยู่แล้วเป็นนักเรียน -->
+      <div id="inviteLoggedIn" class="hidden text-center space-y-4">
+        <p class="text-sm font-bold">คุณล็อกอินในชื่อ <span id="inviteUserName"></span></p>
+        <button onclick="joinRoomFromInvite()" class="nb-btn nb-btn-y w-full !py-3">ยืนยันเข้าห้องเรียน</button>
+        <button onclick="handleLogout()" class="nb-btn nb-btn-w w-full !py-2 text-xs">สลับบัญชี / ออกจากระบบ</button>
+      </div>
+
+      <!-- ถ้ายังไม่ล็อกอิน หรือล็อกอินเป็นครู -->
+      <div id="inviteAuthForms">
+        <p class="text-sm font-bold mb-4 text-center">กรุณาสมัครสมาชิก (นักเรียน) หรือเข้าสู่ระบบเพื่อเข้าร่วม</p>
+        <div class="flex gap-2 mb-6">
+          <button id="invTabLogin" class="nb-btn flex-1 bg-white" onclick="switchInviteAuth('login')">เข้าสู่ระบบ</button>
+          <button id="invTabReg" class="nb-btn flex-1 bg-[#FDE047]" onclick="switchInviteAuth('register')">สมัครใหม่ (นักเรียน)</button>
+        </div>
+        
+        <!-- Student Login -->
+        <form id="inviteLoginForm" class="space-y-4 hidden" onsubmit="handleInviteLogin(event)">
+          <div><input type="email" id="invLoginEmail" class="nb-input" required placeholder="อีเมล"></div>
+          <div><input type="password" id="invLoginPass" class="nb-input" required placeholder="รหัสผ่าน"></div>
+          <button type="submit" class="nb-btn nb-btn-k w-full !py-3">เข้าสู่ระบบและเข้าห้อง</button>
+        </form>
+
+        <!-- Student Register -->
+        <form id="inviteRegisterForm" class="space-y-4" onsubmit="handleInviteRegister(event)">
+          <div><input type="text" id="invRegName" class="nb-input" required placeholder="ชื่อ-นามสกุล"></div>
+          <div><input type="email" id="invRegEmail" class="nb-input" required placeholder="อีเมล"></div>
+          <div><input type="password" id="invRegPass" class="nb-input" required placeholder="ตั้งรหัสผ่าน"></div>
+          <button type="submit" class="nb-btn nb-btn-y w-full !py-3">สมัครและเข้าห้องเรียน</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -153,13 +189,11 @@
     </header>
 
     <main class="flex-1 p-4 sm:p-6 pb-24">
-      <!-- SETUP WIZARD -->
       <div id="setupWizard" class="hidden max-w-2xl mx-auto mt-10">
         <div class="nb-card p-8 text-center">
           <div id="setupIcon" class="text-7xl mb-4">🪄</div>
           <h2 id="setupTitle" class="text-2xl font-bold mb-2">ยินดีต้อนรับ!</h2>
           <p id="setupDesc" class="text-sm text-gray-500 mb-8">...</p>
-          
           <form id="setupForm" class="max-w-sm mx-auto space-y-4 text-left border-t-2 border-dashed border-gray-300 pt-6" onsubmit="handleSetup(event)">
             <div id="setupInputContainer">
               <label id="setupInputLabel" class="text-xs font-bold">...</label>
@@ -169,14 +203,11 @@
           </form>
         </div>
       </div>
-
-      <!-- MAIN DASHBOARD -->
       <div id="dashboardContainer" class="hidden"></div>
     </main>
   </div>
 </div>
 
-<!-- MODALS & TOAST -->
 <div id="modalLayer" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
   <div class="absolute inset-0 bg-black/40" data-close></div>
   <div id="modalPanel" class="relative w-full max-w-md max-h-[90vh] overflow-y-auto nb-card p-5 pop"></div>
@@ -208,21 +239,6 @@
   </div>
 </template>
 
-<template id="tpl-join-room">
-  <h3 class="text-lg font-bold mb-1">เข้าห้องเรียนใหม่ 🔑</h3>
-  <p class="text-xs text-gray-500 mb-4">กรอกรหัส 6 หลักที่ได้รับจากคุณครู</p>
-  <div class="space-y-3">
-    <div>
-      <label class="text-xs font-bold">รหัสห้องเรียน</label>
-      <input id="join-code" class="nb-input mt-1 text-center font-bold text-lg uppercase" maxlength="6" placeholder="A7B9C2" style="text-transform: uppercase;">
-    </div>
-  </div>
-  <div class="flex gap-2 justify-end mt-5">
-    <button class="nb-btn bg-gray-200" data-close>ยกเลิก</button>
-    <button class="nb-btn nb-btn-y" data-act="join-room">เข้าห้องเรียน</button>
-  </div>
-</template>
-
 <script>
 /* ============================================================
    CONFIG & STATE
@@ -233,10 +249,9 @@ const state = {
   user: null,
   classrooms: [],
   missions: [],
-  ui: {
-    page: 'dashboard',
-    missionFilter: 'all'
-  }
+  inviteCode: null,
+  inviteRoomData: null,
+  ui: { page: 'dashboard', missionFilter: 'all' }
 };
 
 const $  = (s, r = document) => r.querySelector(s);
@@ -254,9 +269,6 @@ function toast(msg, type = 'ok') {
   setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3000);
 }
 
-/* ============================================================
-   API HELPER
-============================================================ */
 async function api(action, payload = {}) {
   try {
     const res = await fetch(`${CONFIG.API_URL}?action=${action}`, {
@@ -266,31 +278,44 @@ async function api(action, payload = {}) {
     const json = await res.json();
     if (!json.ok) throw new Error(json.error || 'API Error');
     return json.data;
-  } catch (err) {
-    toast(err.message, 'error');
-    throw err;
-  }
+  } catch (err) { toast(err.message, 'error'); throw err; }
 }
 
 /* ============================================================
-   AUTHENTICATION
+   INITIAL ROUTING (ตรวจสอบว่ามีลิงก์เชิญหรือไม่)
+============================================================ */
+document.addEventListener('DOMContentLoaded', async () => {
+  const savedUser = localStorage.getItem('kruboard_user');
+  if (savedUser) state.user = JSON.parse(savedUser);
+
+  // ตรวจสอบ hash URL (เช่น #/join/A7B9C2)
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#/join/')) {
+    state.inviteCode = hash.split('/')[2];
+    if (!state.inviteCode) { window.location.hash = ''; return; }
+    
+    // ดึงข้อมูลห้องเรียน
+    try {
+      state.inviteRoomData = await api('getClassroomByCode', { code: state.inviteCode });
+      showInviteView();
+    } catch (err) {
+      toast('ลิงก์เชิญไม่ถูกต้อง', 'error');
+      window.location.hash = ''; // กลับหน้าหลัก
+    }
+  } else {
+    // โหลดแอปปกติ
+    if (state.user) initApp();
+  }
+});
+
+/* ============================================================
+   TEACHER AUTH (หน้าหลัก)
 ============================================================ */
 function switchAuthTab(type) {
   $('#loginForm').classList.toggle('hidden', type !== 'login');
   $('#registerForm').classList.toggle('hidden', type !== 'register');
   $('#tabLogin').className = type === 'login' ? 'nb-btn flex-1 bg-[#FDE047]' : 'nb-btn flex-1 bg-white';
   $('#tabRegister').className = type === 'register' ? 'nb-btn flex-1 bg-[#FDE047]' : 'nb-btn flex-1 bg-white';
-}
-
-function setRegRole(role) {
-  $('#regRole').value = role;
-  if (role === 'teacher') {
-    $('#btnRegTeacher').className = 'flex-1 py-2 text-sm font-bold rounded-md transition bg-white shadow-[2px_2px_0_#000] border-2 border-black';
-    $('#btnRegStudent').className = 'flex-1 py-2 text-sm font-bold rounded-md transition text-gray-500';
-  } else {
-    $('#btnRegTeacher').className = 'flex-1 py-2 text-sm font-bold rounded-md transition text-gray-500';
-    $('#btnRegStudent').className = 'flex-1 py-2 text-sm font-bold rounded-md transition bg-white shadow-[2px_2px_0_#000] border-2 border-black';
-  }
 }
 
 async function handleLogin(e) {
@@ -300,7 +325,7 @@ async function handleLogin(e) {
     localStorage.setItem('kruboard_user', JSON.stringify(res));
     state.user = res;
     initApp();
-  } catch (err) { toast('เข้าสู่ระบบไม่สำเร็จ: ' + err.message, 'error'); }
+  } catch (err) { }
 }
 
 async function handleRegister(e) {
@@ -308,21 +333,108 @@ async function handleRegister(e) {
   try {
     await api('register', {
       Name: $('#regName').value, Email: $('#regEmail').value,
-      Password: $('#regPass').value, Role: $('#regRole').value
+      Password: $('#regPass').value, Role: 'teacher' // บังคับเป็นครู
     });
-    toast('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ');
+    toast('สมัครสมาชิก (ครู) สำเร็จ! กรุณาเข้าสู่ระบบ');
     switchAuthTab('login');
     $('#loginEmail').value = $('#regEmail').value;
-  } catch (err) { toast('สมัครไม่สำเร็จ: ' + err.message, 'error'); }
+  } catch (err) { }
 }
 
-function handleLogout() { localStorage.removeItem('kruboard_user'); location.reload(); }
+/* ============================================================
+   STUDENT INVITE (เข้าผ่านลิงก์)
+============================================================ */
+function showInviteView() {
+  $('#authView').classList.add('hidden');
+  $('#appView').classList.add('hidden');
+  $('#inviteView').classList.remove('hidden');
+  
+  $('#inviteRoomName').textContent = state.inviteRoomData.Name;
+  $('#inviteTeacherName').textContent = state.inviteRoomData.TeacherName;
+
+  if (state.user) {
+    if (state.user.Role === 'teacher') {
+      // ถ้าล็อกอินเป็นครู ให้แจ้งเตือนว่าต้องใช้บัญชีนักเรียน
+      toast('คุณล็อกอินเป็นครูอยู่ กรุณาสลับบัญชีนักเรียนเพื่อเข้าห้อง', 'error');
+      $('#inviteAuthForms').classList.add('hidden');
+      $('#inviteLoggedIn').classList.remove('hidden');
+      $('#inviteUserName').textContent = state.user.Name;
+      // เปลี่ยนปุ่ม
+      $('.nb-btn-y', $('#inviteLoggedIn')).textContent = 'ออกจากระบบเพื่อสลับบัญชี';
+      $('.nb-btn-y', $('#inviteLoggedIn')).onclick = handleLogout;
+    } else {
+      // ถ้าเป็นนักเรียน ล็อกอินแล้ว ให้แสดงปุ่มยืนยันเข้าห้อง
+      $('#inviteAuthForms').classList.add('hidden');
+      $('#inviteLoggedIn').classList.remove('hidden');
+      $('#inviteUserName').textContent = state.user.Name;
+    }
+  } else {
+    // ยังไม่ล็อกอิน ให้แสดงฟอร์มนักเรียน
+    switchInviteAuth('register');
+  }
+}
+
+function switchInviteAuth(type) {
+  $('#inviteLoginForm').classList.toggle('hidden', type !== 'login');
+  $('#inviteRegisterForm').classList.toggle('hidden', type !== 'register');
+  $('#invTabLogin').className = type === 'login' ? 'nb-btn flex-1 bg-[#FDE047]' : 'nb-btn flex-1 bg-white';
+  $('#invTabReg').className = type === 'register' ? 'nb-btn flex-1 bg-[#FDE047]' : 'nb-btn flex-1 bg-white';
+}
+
+async function handleInviteLogin(e) {
+  e.preventDefault();
+  try {
+    const res = await api('login', { Email: $('#invLoginEmail').value, Password: $('#invLoginPass').value });
+    if (res.Role === 'teacher') return toast('บัญชีนี้เป็นของครู ไม่สามารถใช้เข้าห้องเรียนได้', 'error');
+    localStorage.setItem('kruboard_user', JSON.stringify(res));
+    state.user = res;
+    joinRoomFromInvite(); // เข้าห้องต่อทันที
+  } catch (err) { }
+}
+
+async function handleInviteRegister(e) {
+  e.preventDefault();
+  try {
+    // สมัครสมาชิก (บังคับ Role เป็น student)
+    const res = await api('register', {
+      Name: $('#invRegName').value, Email: $('#invRegEmail').value,
+      Password: $('#invRegPass').value, Role: 'student'
+    });
+    
+    // ล็อกอินอัตโนมัติ
+    localStorage.setItem('kruboard_user', JSON.stringify(res.user));
+    state.user = res.user;
+    
+    toast('สมัครสมาชิกสำเร็จ! กำลังเข้าห้องเรียน...', 'ok');
+    setTimeout(() => joinRoomFromInvite(), 1000);
+  } catch (err) { }
+}
+
+async function joinRoomFromInvite() {
+  try {
+    await api('joinClassroom', { ClassCode: state.inviteCode, StudentID: state.user.ID });
+    toast('เข้าห้องเรียนสำเร็จ!', 'ok');
+    window.location.hash = ''; // ล้าง hash
+    $('#inviteView').classList.add('hidden');
+    $('#appView').classList.remove('hidden');
+    setTimeout(() => initApp(), 1000);
+  } catch (err) {
+    if (err.message.includes('อยู่แล้ว')) {
+      // ถ้าอยู่แล้วให้เข้าแอปเลย
+      window.location.hash = '';
+      $('#inviteView').classList.add('hidden');
+      $('#appView').classList.remove('hidden');
+      initApp();
+    }
+  }
+}
 
 /* ============================================================
-   APP INITIALIZATION
+   MAIN APP INITIALIZATION
 ============================================================ */
 async function initApp() {
   $('#authView').classList.add('hidden');
+  $('#inviteView').classList.add('hidden');
   $('#appView').classList.remove('hidden');
   
   $('#uiUserName').textContent = state.user.Name;
@@ -337,9 +449,10 @@ async function initApp() {
     state.classrooms = await api('getStudentClassrooms', { StudentID: state.user.ID });
     if (state.classrooms.length === 0) { showSetup('student'); return; }
   }
-  
   renderApp();
 }
+
+function handleLogout() { localStorage.removeItem('kruboard_user'); window.location.hash = ''; location.reload(); }
 
 function showSetup(role) {
   $('#setupWizard').classList.remove('hidden');
@@ -347,17 +460,17 @@ function showSetup(role) {
   if (role === 'teacher') {
     $('#setupIcon').textContent = '🏫';
     $('#setupTitle').textContent = 'สร้างห้องเรียนแรกของคุณ';
-    $('#setupDesc').textContent = 'สร้างห้องเรียนเพื่อรับรหัส 6 หลักสำหรับให้นักเรียนเข้าร่วม';
+    $('#setupDesc').textContent = 'สร้างห้องเรียนเพื่อรับลิงก์เชิญสำหรับส่งให้นักเรียน';
     $('#setupInputLabel').textContent = 'ชื่อห้องเรียน / วิชา';
     $('#setupInput').placeholder = 'เช่น ม.1/1 คณิตศาสตร์';
     $('#setupBtn').textContent = '+ สร้างห้องเรียน';
   } else {
+    // นักเรียนที่ล็อกอินแต่ไม่มีห้อง (กรณีเข้าผ่านเมนูปกติ)
     $('#setupIcon').textContent = '🔑';
     $('#setupTitle').textContent = 'เข้าห้องเรียน';
     $('#setupDesc').textContent = 'กรุณากรอกรหัสห้อง 6 หลักที่ได้รับจากคุณครู';
     $('#setupInputLabel').textContent = 'รหัสห้องเรียน';
     $('#setupInput').placeholder = 'เช่น A7B9C2';
-    $('#setupInput').style.textTransform = 'uppercase';
     $('#setupBtn').textContent = 'เข้าห้องเรียน';
   }
 }
@@ -375,35 +488,19 @@ async function handleSetup(e) {
       toast('เข้าห้องเรียนสำเร็จ!', 'ok');
     }
     setTimeout(() => initApp(), 1000);
-  } catch (err) { toast(err.message, 'error'); }
+  } catch (err) { }
 }
 
 /* ============================================================
    SIDEBAR & NAVIGATION
 ============================================================ */
 const TEACHER_NAV = [
-  { title: 'ภาพรวม', items: [
-    { id: 'dashboard', label: 'แดชบอร์ด', icon: '🏠' },
-    { id: 'missions', label: 'ภารกิจ', icon: '📋' }
-  ]},
-  { title: 'ห้องเรียน', items: [
-    { id: 'classrooms', label: 'ห้องเรียนของฉัน', icon: '🏫' },
-    { id: 'mental', label: 'เช็กสภาพใจ', icon: '💚' }
-  ]},
-  { title: 'จัดการ', items: [
-    { id: 'gradebook', label: 'คะแนนเก็บ/ตัดเกรด', icon: '🎯' },
-    { id: 'terms', label: 'เทอม / Export', icon: '📤' },
-    { id: 'settings', label: 'ตั้งค่า', icon: '⚙️' }
-  ]}
+  { title: 'ภาพรวม', items: [{ id: 'dashboard', label: 'แดชบอร์ด', icon: '🏠' }, { id: 'missions', label: 'ภารกิจ', icon: '📋' }]},
+  { title: 'ห้องเรียน', items: [{ id: 'classrooms', label: 'ห้องเรียนของฉัน', icon: '🏫' }, { id: 'mental', label: 'เช็กสภาพใจ', icon: '💚' }]},
+  { title: 'จัดการ', items: [{ id: 'gradebook', label: 'คะแนนเก็บ/ตัดเกรด', icon: '🎯' }, { id: 'terms', label: 'เทอม / Export', icon: '📤' }, { id: 'settings', label: 'ตั้งค่า', icon: '⚙️' }]}
 ];
-
 const STUDENT_NAV = [
-  { title: 'ของฉัน', items: [
-    { id: 'dashboard', label: 'หน้าหลัก', icon: '🏠' },
-    { id: 'missions', label: 'การบ้าน/ภารกิจ', icon: '📋' },
-    { id: 'grades', label: 'คะแนนของฉัน', icon: '🎯' },
-    { id: 'mental', label: 'เช็กสภาพใจ', icon: '💚' }
-  ]}
+  { title: 'ของฉัน', items: [{ id: 'dashboard', label: 'หน้าหลัก', icon: '🏠' }, { id: 'missions', label: 'การบ้าน/ภารกิจ', icon: '📋' }, { id: 'grades', label: 'คะแนนของฉัน', icon: '🎯' }, { id: 'mental', label: 'เช็กสภาพใจ', icon: '💚' }]}
 ];
 
 function renderSidebar() {
@@ -412,8 +509,7 @@ function renderSidebar() {
     <div class="pt-3 pb-1 px-2 text-[11px] font-bold tracking-wide text-gray-400">${sec.title}</div>
     ${sec.items.map(item => `
       <a href="#" onclick="renderPage('${item.id}')" class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg border-2 border-transparent hover:border-black hover:bg-[#FEF9C3] font-medium text-sm transition" data-nav="${item.id}">
-        <span class="text-lg w-5 text-center shrink-0">${item.icon}</span>
-        <span class="flex-1 truncate">${item.label}</span>
+        <span class="text-lg w-5 text-center shrink-0">${item.icon}</span><span class="flex-1 truncate">${item.label}</span>
       </a>
     `).join('')}
   `).join('');
@@ -429,11 +525,7 @@ function renderApp() {
 /* ============================================================
    PAGE RENDERERS
 ============================================================ */
-const PAGE_TITLES = {
-  dashboard: 'แดชบอร์ด', missions: 'ภารกิจ', classrooms: 'ห้องเรียน',
-  mental: 'เช็กสภาพใจ', gradebook: 'คะแนนเก็บ', terms: 'เทอม / Export',
-  grades: 'คะแนนของฉัน', settings: 'ตั้งค่า'
-};
+const PAGE_TITLES = { dashboard: 'แดชบอร์ด', missions: 'ภารกิจ', classrooms: 'ห้องเรียน', mental: 'เช็กสภาพใจ', gradebook: 'คะแนนเก็บ', terms: 'เทอม / Export', grades: 'คะแนนของฉัน', settings: 'ตั้งค่า' };
 
 async function renderPage(page) {
   state.ui.page = page;
@@ -459,9 +551,7 @@ async function renderPage(page) {
       else if (page === 'grades') view.innerHTML = await renderStudentGrades();
       else if (page === 'mental') view.innerHTML = renderStudentMental();
     }
-  } catch (err) {
-    view.innerHTML = `<div class="p-6 text-red-500">เกิดข้อผิดพลาด: ${err.message}</div>`;
-  }
+  } catch (err) { view.innerHTML = `<div class="p-6 text-red-500">เกิดข้อผิดพลาด: ${err.message}</div>`; }
 }
 
 /* ============================================================
@@ -470,12 +560,8 @@ async function renderPage(page) {
 async function renderTeacherDashboard() {
   state.missions = await api('getMissions', { TeacherID: state.user.ID });
   const active = state.missions.filter(m => m.Status === 'active');
-  
   return `
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold">สวัสดี ${esc(state.user.Name)} 👋</h1>
-      <p class="text-sm text-gray-500">ภาพรวมห้องเรียนของคุณ</p>
-    </div>
+    <div class="mb-6"><h1 class="text-2xl font-bold">สวัสดี ${esc(state.user.Name)} 👋</h1><p class="text-sm text-gray-500">ภาพรวมห้องเรียนของคุณ</p></div>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <div class="nb-card p-4"><div class="text-xs font-bold text-gray-500">ห้องเรียน</div><div class="text-2xl font-bold mt-1">${state.classrooms.length}</div></div>
       <div class="nb-card p-4 bg-[#FDE047]"><div class="text-xs font-bold text-gray-700">ภารกิจค้าง</div><div class="text-2xl font-bold mt-1">${active.length}</div></div>
@@ -483,12 +569,7 @@ async function renderTeacherDashboard() {
     <div class="nb-card p-4">
       <h2 class="font-bold text-lg mb-4">📋 ภารกิจล่าสุด</h2>
       <div class="space-y-3">
-        ${state.missions.slice(0, 5).map(m => `
-          <div class="border-2 border-black rounded-lg p-3 flex justify-between items-center">
-            <div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div>
-            <span class="text-xs font-bold px-2 py-1 bg-[#FDE047] border-2 border-black rounded">${m.Status}</span>
-          </div>
-        `).join('') || '<p class="text-gray-400 text-center py-4">🐻 ยังไม่มีภารกิจ</p>'}
+        ${state.missions.slice(0, 5).map(m => `<div class="border-2 border-black rounded-lg p-3 flex justify-between items-center"><div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div><span class="text-xs font-bold px-2 py-1 bg-[#FDE047] border-2 border-black rounded">${m.Status}</span></div>`).join('') || '<p class="text-gray-400 text-center py-4">🐻 ยังไม่มีภารกิจ</p>'}
       </div>
     </div>
   `;
@@ -498,34 +579,22 @@ async function renderTeacherMissions() {
   state.missions = await api('getMissions', { TeacherID: state.user.ID });
   const f = state.ui.missionFilter;
   const list = f === 'all' ? state.missions : state.missions.filter(m => m.Status === f);
-  
   return `
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">ภารกิจ 📋</h1>
-      <button class="nb-btn nb-btn-y" onclick="openMissionModal()">+ สร้างภารกิจ</button>
-    </div>
-    <div class="flex gap-2 mb-4">
-      ${['all', 'active', 'done'].map(k => `<button class="nb-tab ${f === k ? 'active' : ''}" onclick="state.ui.missionFilter='${k}'; renderPage('missions')">${k === 'all' ? 'ทั้งหมด' : k === 'active' ? 'กำลังทำ' : 'เสร็จสิ้น'}</button>`).join('')}
-    </div>
+    <div class="flex justify-between items-center mb-4"><h1 class="text-2xl font-bold">ภารกิจ 📋</h1><button class="nb-btn nb-btn-y" onclick="openMissionModal()">+ สร้างภารกิจ</button></div>
+    <div class="flex gap-2 mb-4">${['all', 'active', 'done'].map(k => `<button class="nb-tab ${f === k ? 'active' : ''}" onclick="state.ui.missionFilter='${k}'; renderPage('missions')">${k === 'all' ? 'ทั้งหมด' : k === 'active' ? 'กำลังทำ' : 'เสร็จสิ้น'}</button>`).join('')}</div>
     <div class="space-y-3">
-      ${list.map(m => `
-        <div class="nb-card p-4 flex justify-between items-center">
-          <div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div>
-          <span class="text-xs font-bold px-2 py-1 border-2 border-black rounded ${m.Status === 'active' ? 'bg-[#FDE047]' : 'bg-[#A7F3D0]'}">${m.Status === 'active' ? 'กำลังทำ' : 'เสร็จสิ้น'}</span>
-        </div>
-      `).join('') || '<div class="nb-card p-10 text-center"><div class="text-6xl">🐻💤</div><p class="mt-2 font-bold">ไม่มีภารกิจ</p></div>'}
+      ${list.map(m => `<div class="nb-card p-4 flex justify-between items-center"><div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div><span class="text-xs font-bold px-2 py-1 border-2 border-black rounded ${m.Status === 'active' ? 'bg-[#FDE047]' : 'bg-[#A7F3D0]'}">${m.Status === 'active' ? 'กำลังทำ' : 'เสร็จสิ้น'}</span></div>`).join('') || '<div class="nb-card p-10 text-center"><div class="text-6xl">🐻💤</div><p class="mt-2 font-bold">ไม่มีภารกิจ</p></div>'}
     </div>
   `;
 }
 
 function renderTeacherClassrooms() {
   return `
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">ห้องเรียนของฉัน 🏫</h1>
-      <button class="nb-btn nb-btn-y" onclick="openSubjectModal()">+ สร้างห้องเรียน</button>
-    </div>
+    <div class="flex justify-between items-center mb-4"><h1 class="text-2xl font-bold">ห้องเรียนของฉัน 🏫</h1><button class="nb-btn nb-btn-y" onclick="openSubjectModal()">+ สร้างห้องเรียน</button></div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      ${state.classrooms.map(r => `
+      ${state.classrooms.map(r => {
+        const inviteLink = `${window.location.origin}${window.location.pathname}#/join/${r.ClassCode}`;
+        return `
         <div class="nb-card p-5">
           <div class="flex justify-between items-start mb-3">
             <div class="text-3xl">🏫</div>
@@ -533,74 +602,33 @@ function renderTeacherClassrooms() {
           </div>
           <div class="font-bold text-lg mb-1">${esc(r.Name)}</div>
           <div class="text-xs text-gray-500 mb-3">สร้างเมื่อ: ${r.CreatedAt}</div>
-          <div class="flex gap-2">
-            <button class="nb-btn nb-btn-w nb-btn-s flex-1" onclick="copyCode('${r.ClassCode}')">📋 คัดลอก</button>
-            <a href="https://line.me/R/msg/text/?เข้าร่วมห้องเรียน ${esc(r.Name)} ใน KruBoard ด้วยรหัส: ${r.ClassCode}" target="_blank" class="nb-btn nb-btn-g nb-btn-s flex-1 text-center">💬 แชร์ LINE</a>
+          <div class="flex flex-col gap-2">
+            <button class="nb-btn nb-btn-g nb-btn-s w-full" onclick="copyInviteLink('${inviteLink}')">🔗 คัดลอกลิงก์เชิญนักเรียน</button>
+            <div class="flex gap-2">
+              <button class="nb-btn nb-btn-w nb-btn-s flex-1" onclick="copyCode('${r.ClassCode}')">📋 คัดลอกรหัส</button>
+              <a href="https://line.me/R/msg/text/?เข้าร่วมห้องเรียน ${esc(r.Name)} ใน KruBoard: ${inviteLink}" target="_blank" class="nb-btn nb-btn-y nb-btn-s flex-1 text-center">💬 แชร์ LINE</a>
+            </div>
           </div>
-        </div>
-      `).join('')}
+        </div>`;
+      }).join('')}
     </div>
   `;
 }
 
 function copyCode(code) {
-  navigator.clipboard.writeText(code).then(() => {
-    toast('คัดลอกรหัสห้องแล้ว! ส่งให้นักเรียนได้เลย');
-  }).catch(() => {
-    toast('คัดลอกไม่สำเร็จ กรุณาจดด้วยตัวเอง', 'error');
-  });
+  navigator.clipboard.writeText(code).then(() => toast('คัดลอกรหัสห้องแล้ว!')).catch(() => toast('คัดลอกไม่สำเร็จ', 'error'));
 }
 
-async function renderMental() {
-  return `
-    <div class="mb-6"><h1 class="text-2xl font-bold">เช็กสภาพใจ 💚</h1><p class="text-sm text-gray-500">ภาพรวมอารมณ์นักเรียนในห้องของคุณ</p></div>
-    <div class="nb-card p-6 text-center text-gray-400">🐻 ยังไม่มีข้อมูลการเช็กอิน</div>
-  `;
+function copyInviteLink(link) {
+  navigator.clipboard.writeText(link).then(() => {
+    toast('คัดลอกลิงก์เชิญแล้ว! ส่งให้นักเรียนกดลิงก์เพื่อสมัครได้เลย');
+  }).catch(() => toast('คัดลอกไม่สำเร็จ', 'error'));
 }
 
-async function renderGradebook() {
-  return `
-    <div class="mb-6"><h1 class="text-2xl font-bold">คะแนนเก็บ / ตัดเกรด 🎯</h1></div>
-    <div class="grid sm:grid-cols-2 gap-4">
-      ${state.classrooms.map(c => `
-        <div class="nb-card p-5 cursor-pointer hover:bg-[#FEF9C3]">
-          <div class="font-bold text-lg">${esc(c.Name)}</div>
-          <div class="text-xs text-gray-500">รหัสห้อง: ${c.ClassCode}</div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderTerms() {
-  return `
-    <div class="mb-6"><h1 class="text-2xl font-bold">เทอม / Export 📤</h1></div>
-    <div class="nb-card p-4 mb-4 bg-[#FDE047] flex justify-between items-center">
-      <div><div class="text-xs font-bold">เทอมปัจจุบัน</div><div class="text-xl font-bold">2/2569</div></div>
-      <span class="text-xs bg-white px-2 py-1 border-2 border-black rounded">กำลังเปิด</span>
-    </div>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-      ${['Grades', 'Scores', 'Attendance', 'EXP', 'Files', 'Exams'].map(t => `
-        <button class="nb-card p-4 text-center font-bold hover:bg-[#FEF9C3]">📤 Export ${t}</button>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderSettings() {
-  return `
-    <div class="max-w-2xl">
-      <h1 class="text-2xl font-bold mb-2">ตั้งค่าการแจ้งเตือน ⚙️</h1>
-      <div class="nb-card p-6 mt-4">
-        <label class="text-xs font-bold">Facebook Page Access Token</label>
-        <input type="password" id="fbToken" class="nb-input mt-1 mb-3" placeholder="EAAB...">
-        <label class="text-xs font-bold">Facebook PSID</label>
-        <input type="text" id="fbPsid" class="nb-input mt-1 mb-3" placeholder="1234567890">
-        <button class="nb-btn nb-btn-k" onclick="saveFbSettings()">บันทึกการตั้งค่า</button>
-      </div>
-    </div>
-  `;
-}
+async function renderMental() { return `<div class="mb-6"><h1 class="text-2xl font-bold">เช็กสภาพใจ 💚</h1><p class="text-sm text-gray-500">ภาพรวมอารมณ์นักเรียน</p></div><div class="nb-card p-6 text-center text-gray-400">🐻 ยังไม่มีข้อมูล</div>`; }
+async function renderGradebook() { return `<div class="mb-6"><h1 class="text-2xl font-bold">คะแนนเก็บ / ตัดเกรด 🎯</h1></div><div class="grid sm:grid-cols-2 gap-4">${state.classrooms.map(c => `<div class="nb-card p-5 cursor-pointer hover:bg-[#FEF9C3]"><div class="font-bold text-lg">${esc(c.Name)}</div><div class="text-xs text-gray-500">รหัสห้อง: ${c.ClassCode}</div></div>`).join('')}</div>`; }
+function renderTerms() { return `<div class="mb-6"><h1 class="text-2xl font-bold">เทอม / Export 📤</h1></div><div class="nb-card p-4 mb-4 bg-[#FDE047] flex justify-between items-center"><div><div class="text-xs font-bold">เทอมปัจจุบัน</div><div class="text-xl font-bold">2/2569</div></div><span class="text-xs bg-white px-2 py-1 border-2 border-black rounded">กำลังเปิด</span></div>`; }
+function renderSettings() { return `<div class="max-w-2xl"><h1 class="text-2xl font-bold mb-2">ตั้งค่าการแจ้งเตือน ⚙️</h1><div class="nb-card p-6 mt-4"><label class="text-xs font-bold">Facebook Page Access Token</label><input type="password" id="fbToken" class="nb-input mt-1 mb-3"><label class="text-xs font-bold">Facebook PSID</label><input type="text" id="fbPsid" class="nb-input mt-1 mb-3"><button class="nb-btn nb-btn-k" onclick="saveFbSettings()">บันทึกการตั้งค่า</button></div></div>`; }
 
 /* ============================================================
    STUDENT PAGES
@@ -608,72 +636,28 @@ function renderSettings() {
 async function renderStudentDashboard() {
   state.missions = await api('getMissions', { StudentID: state.user.ID });
   const active = state.missions.filter(m => m.Status === 'active');
-  
   return `
     <div class="flex justify-between items-center mb-6">
-      <div>
-        <h1 class="text-2xl font-bold">สวัสดี ${esc(state.user.Name)} 🧑‍🎓</h1>
-        <p class="text-sm text-gray-500">ภาพรวมการเรียนของคุณ</p>
-      </div>
-      <button class="nb-btn nb-btn-y" onclick="openJoinRoomModal()">+ เข้าห้องเรียนใหม่</button>
+      <div><h1 class="text-2xl font-bold">สวัสดี ${esc(state.user.Name)} 🧑‍🎓</h1><p class="text-sm text-gray-500">ภาพรวมการเรียนของคุณ</p></div>
     </div>
-    
     <div class="grid grid-cols-2 gap-4 mb-6">
       <div class="nb-card p-4 bg-[#FDE047]"><div class="text-xs text-gray-700 font-bold">งานที่ต้องส่ง</div><div class="text-2xl font-bold mt-1">${active.length}</div></div>
       <div class="nb-card p-4 bg-[#A7F3D0]"><div class="text-xs text-gray-700 font-bold">ห้องเรียนที่เข้าร่วม</div><div class="text-2xl font-bold mt-1">${state.classrooms.length}</div></div>
     </div>
-    
-    <div class="nb-card p-4">
-      <h2 class="font-bold text-lg mb-4">📋 งานที่ต้องส่ง</h2>
-      ${active.map(m => `<div class="border-2 border-black rounded-lg p-3 mb-2"><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-red-500">Due: ${m.DueDate || '-'}</div></div>`).join('') || '<p class="text-gray-400 text-center py-4">ไม่มีงานค้าง 🎉</p>'}
-    </div>
+    <div class="nb-card p-4"><h2 class="font-bold text-lg mb-4">📋 งานที่ต้องส่ง</h2>${active.map(m => `<div class="border-2 border-black rounded-lg p-3 mb-2"><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-red-500">Due: ${m.DueDate || '-'}</div></div>`).join('') || '<p class="text-gray-400 text-center py-4">ไม่มีงานค้าง 🎉</p>'}</div>
   `;
 }
 
 async function renderStudentMissions() {
   state.missions = await api('getMissions', { StudentID: state.user.ID });
-  return `
-    <h1 class="text-2xl font-bold mb-4">การบ้าน / ภารกิจ 📋</h1>
-    <div class="space-y-3">
-      ${state.missions.map(m => `
-        <div class="nb-card p-4 flex justify-between items-center">
-          <div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div>
-          <button class="nb-btn nb-btn-y nb-btn-s">ส่งงาน</button>
-        </div>
-      `).join('') || '<div class="nb-card p-10 text-center text-gray-400">🐻 ยังไม่มีภารกิจ</div>'}
-    </div>
-  `;
+  return `<h1 class="text-2xl font-bold mb-4">การบ้าน / ภารกิจ 📋</h1><div class="space-y-3">${state.missions.map(m => `<div class="nb-card p-4 flex justify-between items-center"><div><div class="font-bold">${esc(m.Title)}</div><div class="text-xs text-gray-500">Due: ${m.DueDate || '-'}</div></div><button class="nb-btn nb-btn-y nb-btn-s">ส่งงาน</button></div>`).join('') || '<div class="nb-card p-10 text-center text-gray-400">🐻 ยังไม่มีภารกิจ</div>'}</div>`;
 }
 
-async function renderStudentGrades() {
-  return `
-    <h1 class="text-2xl font-bold mb-4">คะแนนของฉัน 🎯</h1>
-    <div class="nb-card p-10 text-center text-gray-400">ยังไม่มีข้อมูลคะแนนในระบบ</div>
-  `;
-}
+async function renderStudentGrades() { return `<h1 class="text-2xl font-bold mb-4">คะแนนของฉัน 🎯</h1><div class="nb-card p-10 text-center text-gray-400">ยังไม่มีข้อมูลคะแนนในระบบ</div>`; }
 
 function renderStudentMental() {
-  const moods = [
-    { key: 'สดใส', emoji: '😄', color: '#A7F3D0' },
-    { key: 'โอเคอยู่', emoji: '🙂', color: '#FDE047' },
-    { key: 'หนักใจ', emoji: '😟', color: '#FDBA74' },
-    { key: 'หนักใจมาก', emoji: '😫', color: '#FCA5A5' },
-    { key: 'บอกไม่ถูก', emoji: '😐', color: '#D1D5DB' }
-  ];
-  return `
-    <h1 class="text-2xl font-bold mb-4">เช็กสภาพใจ 💚</h1>
-    <div class="nb-card p-6 text-center">
-      <p class="mb-4 font-bold">วันนี้คุณรู้สึกอย่างไร?</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        ${moods.map(m => `
-          <button class="nb-card p-4 w-24 hover:-translate-y-1 transition" onclick="saveMental('${m.key}')" style="background:${m.color}">
-            <div class="text-3xl">${m.emoji}</div>
-            <div class="text-xs font-bold mt-2">${m.key}</div>
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
+  const moods = [{ key: 'สดใส', emoji: '😄', color: '#A7F3D0' }, { key: 'โอเคอยู่', emoji: '🙂', color: '#FDE047' }, { key: 'หนักใจ', emoji: '😟', color: '#FDBA74' }, { key: 'หนักใจมาก', emoji: '😫', color: '#FCA5A5' }, { key: 'บอกไม่ถูก', emoji: '😐', color: '#D1D5DB' }];
+  return `<h1 class="text-2xl font-bold mb-4">เช็กสภาพใจ 💚</h1><div class="nb-card p-6 text-center"><p class="mb-4 font-bold">วันนี้คุณรู้สึกอย่างไร?</p><div class="flex flex-wrap justify-center gap-3">${moods.map(m => `<button class="nb-card p-4 w-24 hover:-translate-y-1 transition" onclick="saveMental('${m.key}')" style="background:${m.color}"><div class="text-3xl">${m.emoji}</div><div class="text-xs font-bold mt-2">${m.key}</div></button>`).join('')}</div></div>`;
 }
 
 /* ============================================================
@@ -685,41 +669,20 @@ function openModal(tplId, fill) {
   if (fill) fill($('#modalPanel'));
   $('#modalLayer').classList.remove('hidden'); $('#modalLayer').classList.add('flex');
 }
-
-function closeModal() {
-  $('#modalLayer').classList.add('hidden'); $('#modalLayer').classList.remove('flex');
-}
-
-function openMissionModal() {
-  openModal('tpl-mission', (panel) => {
-    panel.querySelector('#f-mission-room').innerHTML = state.classrooms.map(c => `<option value="${c.ID}">${esc(c.Name)}</option>`).join('');
-  });
-}
-
-function openSubjectModal() {
-  openModal('tpl-subject');
-}
-
-function openJoinRoomModal() {
-  openModal('tpl-join-room');
-}
+function closeModal() { $('#modalLayer').classList.add('hidden'); $('#modalLayer').classList.remove('flex'); }
+function openMissionModal() { openModal('tpl-mission', (panel) => { panel.querySelector('#f-mission-room').innerHTML = state.classrooms.map(c => `<option value="${c.ID}">${esc(c.Name)}</option>`).join(''); }); }
+function openSubjectModal() { openModal('tpl-subject'); }
 
 async function saveFbSettings() {
   try {
     await api('saveSetting', { Key: 'FB_PAGE_TOKEN', Value: $('#fbToken').value });
     await api('saveSetting', { Key: 'FB_PSID_' + state.user.ID, Value: $('#fbPsid').value });
     toast('บันทึกการตั้งค่าสำเร็จ!');
-  } catch (err) { toast(err.message, 'error'); }
+  } catch (err) { }
 }
 
-async function saveMental(mood) {
-  try {
-    // API สำหรับบันทึกสภาพใจ (ถ้ามี)
-    toast('บันทึกสภาพใจแล้ว 💚');
-  } catch (err) { toast(err.message, 'error'); }
-}
+async function saveMental(mood) { try { toast('บันทึกสภาพใจแล้ว 💚'); } catch (err) { } }
 
-// Global Event Delegation
 document.addEventListener('click', async (e) => {
   if (e.target.closest('[data-close]')) { closeModal(); return; }
   if (e.target.closest('#openSidebar')) { $('#sidebar').classList.remove('-translate-x-full'); $('#mobileOverlay').classList.remove('hidden'); return; }
@@ -736,7 +699,7 @@ document.addEventListener('click', async (e) => {
     try {
       const m = await api('createMission', { ClassroomID: roomId, Title: title, DueDate: due });
       closeModal(); toast('สร้างภารกิจสำเร็จ'); renderPage('missions');
-    } catch (err) { toast(err.message, 'error'); }
+    } catch (err) { }
   }
   
   if (t.dataset.act === 'save-subject') {
@@ -746,25 +709,8 @@ document.addEventListener('click', async (e) => {
       const c = await api('createClassroom', { Name: name, TeacherID: state.user.ID });
       state.classrooms.push(c);
       closeModal(); toast(`สร้างห้องสำเร็จ! รหัส: ${c.ClassCode}`); renderPage('classrooms');
-    } catch (err) { toast(err.message, 'error'); }
+    } catch (err) { }
   }
-
-  if (t.dataset.act === 'join-room') {
-    const code = $('#join-code').value.trim().toUpperCase();
-    if (!code) return toast('กรุณากรอกรหัสห้อง', 'error');
-    try {
-      await api('joinClassroom', { ClassCode: code, StudentID: state.user.ID });
-      closeModal(); toast('เข้าห้องเรียนสำเร็จ!'); 
-      state.classrooms = await api('getStudentClassrooms', { StudentID: state.user.ID });
-      renderPage('dashboard');
-    } catch (err) { toast(err.message, 'error'); }
-  }
-});
-
-// Boot
-document.addEventListener('DOMContentLoaded', () => {
-  const savedUser = localStorage.getItem('kruboard_user');
-  if (savedUser) { state.user = JSON.parse(savedUser); initApp(); }
 });
 </script>
 </body>
