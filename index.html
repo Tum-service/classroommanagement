@@ -12,11 +12,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: { mali: ['Mali', 'Sriracha', 'system-ui', 'sans-serif'] }
-      }
-    }
+    theme: { extend: { fontFamily: { mali: ['Mali', 'Sriracha', 'system-ui', 'sans-serif'] } } }
   }
 </script>
 
@@ -25,9 +21,7 @@
   body { font-family: 'Mali', sans-serif; }
 
   .nb-card {
-    background: #fff;
-    border: 2px solid #111827;
-    border-radius: 12px;
+    background: #fff; border: 2px solid #111827; border-radius: 12px;
     box-shadow: 4px 4px 0 #000;
   }
   .nb-btn {
@@ -39,14 +33,10 @@
     white-space: nowrap;
   }
   .nb-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
-  .nb-btn-y { background: #FDE047; }
-  .nb-btn-y:hover { background: #fde68a; }
-  .nb-btn-w { background: #fff; }
-  .nb-btn-w:hover { background: #F3F4F6; }
-  .nb-btn-k { background: #111827; color: #fff; }
-  .nb-btn-k:hover { background: #1f2937; }
-  .nb-btn-r { background: #FCA5A5; }
-  .nb-btn-r:hover { background: #f87171; }
+  .nb-btn-y { background: #FDE047; } .nb-btn-y:hover { background: #fde68a; }
+  .nb-btn-w { background: #fff; } .nb-btn-w:hover { background: #F3F4F6; }
+  .nb-btn-k { background: #111827; color: #fff; } .nb-btn-k:hover { background: #1f2937; }
+  .nb-btn-r { background: #FCA5A5; } .nb-btn-r:hover { background: #f87171; }
   .nb-btn-s { padding: .3rem .65rem; font-size: .75rem; border-radius: 8px; box-shadow: 2px 2px 0 #000; }
 
   .nb-input {
@@ -63,11 +53,7 @@
   }
   .nb-tab.active { background: #FDE047; }
 
-  .nav-item.active {
-    background: #FDE047;
-    border-color: #111827 !important;
-    box-shadow: 3px 3px 0 #000;
-  }
+  .nav-item.active { background: #FDE047; border-color: #111827 !important; box-shadow: 3px 3px 0 #000; }
 
   nav::-webkit-scrollbar { width: 8px; }
   nav::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 8px; }
@@ -75,10 +61,8 @@
 
   @keyframes pop { from { transform: scale(.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   .pop { animation: pop .16s ease-out; }
-
   @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
   .slide-up { animation: slideUp .2s ease-out; }
-
   .bar { transition: height .4s cubic-bezier(.4,0,.2,1); }
   details > summary { list-style: none; cursor: pointer; }
   details > summary::-webkit-details-marker { display: none; }
@@ -89,13 +73,12 @@
 
 <body class="bg-[#F9FAFB] text-[#111827] antialiased">
 
-<!-- ===================== MOBILE OVERLAY ===================== -->
+<!-- MOBILE OVERLAY -->
 <div id="mobileOverlay" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
 
-<!-- ===================== SIDEBAR ===================== -->
+<!-- SIDEBAR -->
 <aside id="sidebar"
   class="fixed inset-y-0 left-0 z-40 w-72 bg-white border-r-2 border-black flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-200">
-
   <div class="px-4 py-4 border-b-2 border-black flex items-center gap-3">
     <div class="w-10 h-10 rounded-xl bg-[#FDE047] border-2 border-black shadow-[3px_3px_0_#000] grid place-items-center text-xl shrink-0">🐻</div>
     <div class="min-w-0">
@@ -104,35 +87,27 @@
     </div>
     <button id="closeSidebar" class="lg:hidden nb-btn nb-btn-w nb-btn-s ml-auto">✕</button>
   </div>
-
   <nav id="sidebarNav" class="flex-1 overflow-y-auto px-3 py-3 space-y-0.5"></nav>
-
   <div class="border-t-2 border-black px-3 py-3 space-y-0.5 bg-[#F9FAFB]">
     <div id="sidebarBottom"></div>
   </div>
 </aside>
 
-<!-- ===================== MAIN ===================== -->
+<!-- MAIN -->
 <div class="lg:pl-72 min-h-screen flex flex-col">
-
-  <!-- HEADER -->
   <header class="sticky top-0 z-20 bg-[#F9FAFB]/95 backdrop-blur border-b-2 border-black">
     <div class="flex items-center gap-3 px-4 sm:px-6 py-3">
       <button id="openSidebar" class="lg:hidden nb-btn nb-btn-w nb-btn-s">☰</button>
-
       <div class="min-w-0 flex-1">
         <div id="breadcrumb" class="text-[11px] text-gray-500 font-bold truncate">หน้าแรก</div>
         <div id="pageTitle" class="font-bold text-sm sm:text-base truncate">แดชบอร์ด</div>
       </div>
-
       <div id="termBadge" class="hidden sm:flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-black bg-[#FDE047] shadow-[2px_2px_0_#000]">
         📅 <span>2/2569</span>
       </div>
-
       <button class="nb-btn nb-btn-w nb-btn-s relative" title="การแจ้งเตือน">
         🔔<span class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500 border-2 border-black"></span>
       </button>
-
       <div id="userChip" class="flex items-center gap-2 pl-2 border-l-2 border-black">
         <div class="w-9 h-9 rounded-full border-2 border-black bg-[#FDE047] grid place-items-center text-lg shadow-[2px_2px_0_#000]">👩‍🏫</div>
         <div class="hidden sm:block leading-tight">
@@ -143,7 +118,6 @@
     </div>
   </header>
 
-  <!-- VIEW -->
   <main id="view" class="flex-1 p-4 sm:p-6 pb-24"></main>
 
   <footer class="px-6 py-4 border-t-2 border-black bg-white text-[11px] text-gray-500 flex flex-wrap gap-2 justify-between">
@@ -152,39 +126,29 @@
   </footer>
 </div>
 
-<!-- ===================== MODAL LAYER ===================== -->
+<!-- MODAL LAYER -->
 <div id="modalLayer" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
   <div class="absolute inset-0 bg-black/40" data-close></div>
   <div id="modalPanel" class="relative w-full max-w-md max-h-[90vh] overflow-y-auto nb-card p-5 pop"></div>
 </div>
 
-<!-- ===================== TOASTS ===================== -->
+<!-- TOASTS -->
 <div id="toastBox" class="fixed bottom-4 right-4 z-[60] flex flex-col gap-2 items-end pointer-events-none"></div>
 
-<!-- ============================================================
-     MODAL HTML TEMPLATES
-============================================================ -->
-
-<!-- Mission -->
+<!-- MODAL TEMPLATES -->
 <template id="tpl-mission">
   <h3 class="text-lg font-bold mb-1">สร้างภารกิจใหม่ 📋</h3>
   <p class="text-xs text-gray-500 mb-4">กำหนดงานให้ห้องเรียนของคุณ</p>
   <div class="space-y-3">
-    <div>
-      <label class="text-xs font-bold">ชื่อภารกิจ</label>
-      <input id="f-mission-title" class="nb-input mt-1" placeholder="เช่น ส่งใบงานคูณเลข 2 หลัก" />
-    </div>
-    <div>
-      <label class="text-xs font-bold">วิชา</label>
-      <select id="f-mission-subject" class="nb-input mt-1"></select>
-    </div>
-    <div>
-      <label class="text-xs font-bold">สถานะ</label>
+    <div><label class="text-xs font-bold">ชื่อภารกิจ</label>
+      <input id="f-mission-title" class="nb-input mt-1" placeholder="เช่น ส่งใบงานคูณเลข 2 หลัก" /></div>
+    <div><label class="text-xs font-bold">วิชา</label>
+      <select id="f-mission-subject" class="nb-input mt-1"></select></div>
+    <div><label class="text-xs font-bold">สถานะ</label>
       <select id="f-mission-status" class="nb-input mt-1">
         <option value="active">กำลังดำเนินการ</option>
         <option value="done">เสร็จสิ้น</option>
-      </select>
-    </div>
+      </select></div>
   </div>
   <div class="flex gap-2 justify-end mt-5">
     <button class="nb-btn nb-btn-w" data-close>ยกเลิก</button>
@@ -192,24 +156,17 @@
   </div>
 </template>
 
-<!-- Grade / บันทึกผล -->
 <template id="tpl-grade">
   <h3 class="text-lg font-bold mb-1">บันทึกผล 🎯</h3>
   <p class="text-xs text-gray-500 mb-4">เพิ่มงานเก็บคะแนนให้วิชานี้</p>
   <div class="space-y-3">
-    <div>
-      <label class="text-xs font-bold">ชื่องาน</label>
-      <input id="f-grade-task" class="nb-input mt-1" placeholder="เช่น สอบย่อยบทที่ 3" />
-    </div>
+    <div><label class="text-xs font-bold">ชื่องาน</label>
+      <input id="f-grade-task" class="nb-input mt-1" placeholder="เช่น สอบย่อยบทที่ 3" /></div>
     <div class="grid grid-cols-2 gap-3">
-      <div>
-        <label class="text-xs font-bold">คะแนนเต็ม</label>
-        <input id="f-grade-total" type="number" value="10" min="0" class="nb-input mt-1" />
-      </div>
-      <div>
-        <label class="text-xs font-bold">คะแนนผ่าน</label>
-        <input id="f-grade-pass" type="number" value="5" min="0" class="nb-input mt-1" />
-      </div>
+      <div><label class="text-xs font-bold">คะแนนเต็ม</label>
+        <input id="f-grade-total" type="number" value="10" min="0" class="nb-input mt-1" /></div>
+      <div><label class="text-xs font-bold">คะแนนผ่าน</label>
+        <input id="f-grade-pass" type="number" value="5" min="0" class="nb-input mt-1" /></div>
     </div>
   </div>
   <div class="flex gap-2 justify-end mt-5">
@@ -218,22 +175,17 @@
   </div>
 </template>
 
-<!-- Term -->
 <template id="tpl-term">
   <h3 class="text-lg font-bold mb-1">สร้างเทอมใหม่ 📅</h3>
   <p class="text-xs text-gray-500 mb-4">เช่น 2/2569, 1/2570</p>
   <div class="space-y-3">
-    <div>
-      <label class="text-xs font-bold">ชื่อเทอม</label>
-      <input id="f-term-name" class="nb-input mt-1" placeholder="2/2569" />
-    </div>
-    <div>
-      <label class="text-xs font-bold">สถานะ</label>
+    <div><label class="text-xs font-bold">ชื่อเทอม</label>
+      <input id="f-term-name" class="nb-input mt-1" placeholder="2/2569" /></div>
+    <div><label class="text-xs font-bold">สถานะ</label>
       <select id="f-term-status" class="nb-input mt-1">
         <option value="current">เทอมปัจจุบัน</option>
         <option value="closed">ปิดแล้ว</option>
-      </select>
-    </div>
+      </select></div>
   </div>
   <div class="flex gap-2 justify-end mt-5">
     <button class="nb-btn nb-btn-w" data-close>ยกเลิก</button>
@@ -241,19 +193,14 @@
   </div>
 </template>
 
-<!-- Subject -->
 <template id="tpl-subject">
   <h3 class="text-lg font-bold mb-1">วิชา 📚</h3>
   <p class="text-xs text-gray-500 mb-4">สร้างหรือแก้ไขข้อมูลวิชา</p>
   <div class="space-y-3">
-    <div>
-      <label class="text-xs font-bold">ชื่อวิชา</label>
-      <input id="f-subject-name" class="nb-input mt-1" placeholder="เช่น คณิตศาสตร์" />
-    </div>
-    <div>
-      <label class="text-xs font-bold">สีวิชา</label>
-      <div id="f-subject-colors" class="flex flex-wrap gap-2 mt-2"></div>
-    </div>
+    <div><label class="text-xs font-bold">ชื่อวิชา</label>
+      <input id="f-subject-name" class="nb-input mt-1" placeholder="เช่น คณิตศาสตร์" /></div>
+    <div><label class="text-xs font-bold">สีวิชา</label>
+      <div id="f-subject-colors" class="flex flex-wrap gap-2 mt-2"></div></div>
   </div>
   <div class="flex gap-2 justify-end mt-5">
     <button class="nb-btn nb-btn-w" data-close>ยกเลิก</button>
@@ -261,7 +208,6 @@
   </div>
 </template>
 
-<!-- Confirm -->
 <template id="tpl-confirm">
   <h3 class="text-lg font-bold mb-2" id="f-confirm-title">ยืนยันการทำรายการ</h3>
   <p class="text-sm text-gray-600 mb-5" id="f-confirm-msg">ต้องการลบรายการนี้หรือไม่?</p>
@@ -271,80 +217,75 @@
   </div>
 </template>
 
-<!-- ============================================================
-     APPLICATION SCRIPT
-============================================================ -->
 <script>
 /* ============================================================
-   0) CONFIG
+   0) CONFIG  ← ★ อัปเดต URL ของคุณแล้ว
 ============================================================ */
 const CONFIG = {
-  // ⬇️ ใส่ URL ของ Google Apps Script Web App ที่ deploy แล้ว
-  API_URL: 'https://script.google.com/macros/s/PASTE_YOUR_DEPLOYMENT_ID/exec',
-  // ⬇️ true = ใช้ข้อมูล mock (ทำงานได้ทันทีแม้ยังไม่ต่อ backend)
-  USE_MOCK: true
+  API_URL: 'https://script.google.com/macros/s/AKfycbxEBZIcwQQbOO4oeKaMEZspNFa1OIFPujM5_8Lv8CcpjbyrA5K0Mg4fUevsKz-JM1HgCw/exec',
+  USE_MOCK: false
 };
 
 /* ============================================================
-   1) MOCK DATABASE (fallback)
+   1) MOCK DATABASE
 ============================================================ */
 const MOCK = {
   Users: [
-    { ID: 'USE1', Name: 'ครูมีนา',   Role: 'teacher', Avatar: '👩‍🏫', Email: 'mina@school.ac.th' },
-    { ID: 'USE2', Name: 'นาวิน',     Role: 'student', Avatar: '🧑‍🎓', Email: 'navin@school.ac.th' },
-    { ID: 'USE3', Name: 'ปันปัน',    Role: 'student', Avatar: '👧', Email: 'punpun@school.ac.th' },
-    { ID: 'USE4', Name: 'เก้า',      Role: 'student', Avatar: '👦', Email: 'kao@school.ac.th' },
-    { ID: 'USE5', Name: 'ฟ้า',       Role: 'student', Avatar: '🧒', Email: 'fah@school.ac.th' },
-    { ID: 'USE6', Name: 'ข้าวหอม',   Role: 'student', Avatar: '👩', Email: 'kaohom@school.ac.th' }
+    { ID: 'USE1', Name: 'ครูมีนา', Role: 'teacher', Avatar: '👩‍🏫', Email: 'mina@school.ac.th' },
+    { ID: 'USE2', Name: 'นาวิน', Role: 'student', Avatar: '🧑‍🎓', Email: 'navin@school.ac.th' },
+    { ID: 'USE3', Name: 'ปันปัน', Role: 'student', Avatar: '👧', Email: 'punpun@school.ac.th' },
+    { ID: 'USE4', Name: 'เก้า', Role: 'student', Avatar: '👦', Email: 'kao@school.ac.th' },
+    { ID: 'USE5', Name: 'ฟ้า', Role: 'student', Avatar: '🧒', Email: 'fah@school.ac.th' },
+    { ID: 'USE6', Name: 'ข้าวหอม', Role: 'student', Avatar: '👩', Email: 'kaohom@school.ac.th' }
   ],
   Subjects: [
-    { ID: 'SUB1', Name: 'คณิตศาสตร์',  TeacherID: 'USE1', Color: '#FDE047' },
-    { ID: 'SUB2', Name: 'บูรณาการ',    TeacherID: 'USE1', Color: '#A7F3D0' },
-    { ID: 'SUB3', Name: 'ภาษาไทย',     TeacherID: 'USE1', Color: '#BFDBFE' },
+    { ID: 'SUB1', Name: 'คณิตศาสตร์', TeacherID: 'USE1', Color: '#FDE047' },
+    { ID: 'SUB2', Name: 'บูรณาการ', TeacherID: 'USE1', Color: '#A7F3D0' },
+    { ID: 'SUB3', Name: 'ภาษาไทย', TeacherID: 'USE1', Color: '#BFDBFE' },
     { ID: 'SUB4', Name: 'วิทยาศาสตร์', TeacherID: 'USE1', Color: '#FBCFE8' },
-    { ID: 'SUB5', Name: 'อังกฤษ',      TeacherID: 'USE1', Color: '#FED7AA' },
-    { ID: 'SUB6', Name: 'อื่นๆ',       TeacherID: 'USE1', Color: '#E5E7EB' }
+    { ID: 'SUB5', Name: 'อังกฤษ', TeacherID: 'USE1', Color: '#FED7AA' },
+    { ID: 'SUB6', Name: 'อื่นๆ', TeacherID: 'USE1', Color: '#E5E7EB' }
   ],
   Classrooms: [
-    { ID: 'CLA1', Name: 'ทางงาน',  SubjectID: 'SUB1', StudentCount: 5 },
+    { ID: 'CLA1', Name: 'ทางงาน', SubjectID: 'SUB1', StudentCount: 5 },
     { ID: 'CLA2', Name: 'ทางศิลป์', SubjectID: 'SUB3', StudentCount: 5 },
     { ID: 'CLA3', Name: 'ทางวิทย์', SubjectID: 'SUB4', StudentCount: 5 }
   ],
   Missions: [
-    { ID: 'MIS1', Title: 'ส่งใบงานคูณเลข 2 หลัก',        SubjectID: 'SUB1', Status: 'active', CreatedAt: '2026-01-12' },
-    { ID: 'MIS2', Title: 'อ่านนิทานแล้วสรุป 1 หน้า',      SubjectID: 'SUB3', Status: 'active', CreatedAt: '2026-01-10' },
-    { ID: 'MIS3', Title: 'ทดลองปลูกพืช 3 วัน',            SubjectID: 'SUB4', Status: 'done',   CreatedAt: '2026-01-05' },
-    { ID: 'MIS4', Title: 'ท่องศัพท์ N5 ชุดที่ 1',          SubjectID: 'SUB5', Status: 'active', CreatedAt: '2026-01-14' },
-    { ID: 'MIS5', Title: 'ทำใบงานบูรณาการ เรื่องน้ำ',     SubjectID: 'SUB2', Status: 'done',   CreatedAt: '2026-01-02' }
+    { ID: 'MIS1', Title: 'ส่งใบงานคูณเลข 2 หลัก', SubjectID: 'SUB1', Status: 'active', CreatedAt: '2026-01-12' },
+    { ID: 'MIS2', Title: 'อ่านนิทานแล้วสรุป 1 หน้า', SubjectID: 'SUB3', Status: 'active', CreatedAt: '2026-01-10' },
+    { ID: 'MIS3', Title: 'ทดลองปลูกพืช 3 วัน', SubjectID: 'SUB4', Status: 'done', CreatedAt: '2026-01-05' },
+    { ID: 'MIS4', Title: 'ท่องศัพท์ N5 ชุดที่ 1', SubjectID: 'SUB5', Status: 'active', CreatedAt: '2026-01-14' },
+    { ID: 'MIS5', Title: 'ทำใบงานบูรณาการ เรื่องน้ำ', SubjectID: 'SUB2', Status: 'done', CreatedAt: '2026-01-02' }
   ],
   Grades: [
     { ID: 'GRA1', StudentID: 'USE2', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 18 },
     { ID: 'GRA2', StudentID: 'USE3', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 15 },
-    { ID: 'GRA3', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 9  },
+    { ID: 'GRA3', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 9 },
     { ID: 'GRA4', StudentID: 'USE5', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 20 },
     { ID: 'GRA5', StudentID: 'USE6', SubjectID: 'SUB1', TaskName: 'สอบย่อยบทที่ 1', TotalScore: 20, PassScore: 10, ActualScore: 12 },
-    { ID: 'GRA6', StudentID: 'USE2', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข',    TotalScore: 10, PassScore: 5,  ActualScore: 9  },
-    { ID: 'GRA7', StudentID: 'USE3', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข',    TotalScore: 10, PassScore: 5,  ActualScore: 7  },
-    { ID: 'GRA8', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข',    TotalScore: 10, PassScore: 5,  ActualScore: 5  },
-    { ID: 'GRA9', StudentID: 'USE5', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข',    TotalScore: 10, PassScore: 5,  ActualScore: 10 },
-    { ID: 'GRA10', StudentID: 'USE6', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข',   TotalScore: 10, PassScore: 5,  ActualScore: 8  },
-    { ID: 'GRA11', StudentID: 'USE2', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค',    TotalScore: 30, PassScore: 15, ActualScore: 26 },
-    { ID: 'GRA12', StudentID: 'USE3', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค',    TotalScore: 30, PassScore: 15, ActualScore: 22 },
-    { ID: 'GRA13', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค',    TotalScore: 30, PassScore: 15, ActualScore: 17 },
-    { ID: 'GRA14', StudentID: 'USE5', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค',    TotalScore: 30, PassScore: 15, ActualScore: 28 },
-    { ID: 'GRA15', StudentID: 'USE6', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค',    TotalScore: 30, PassScore: 15, ActualScore: 20 }
+    { ID: 'GRA6', StudentID: 'USE2', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข', TotalScore: 10, PassScore: 5, ActualScore: 9 },
+    { ID: 'GRA7', StudentID: 'USE3', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข', TotalScore: 10, PassScore: 5, ActualScore: 7 },
+    { ID: 'GRA8', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข', TotalScore: 10, PassScore: 5, ActualScore: 5 },
+    { ID: 'GRA9', StudentID: 'USE5', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข', TotalScore: 10, PassScore: 5, ActualScore: 10 },
+    { ID: 'GRA10', StudentID: 'USE6', SubjectID: 'SUB1', TaskName: 'ใบงานคูณเลข', TotalScore: 10, PassScore: 5, ActualScore: 8 },
+    { ID: 'GRA11', StudentID: 'USE2', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค', TotalScore: 30, PassScore: 15, ActualScore: 26 },
+    { ID: 'GRA12', StudentID: 'USE3', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค', TotalScore: 30, PassScore: 15, ActualScore: 22 },
+    { ID: 'GRA13', StudentID: 'USE4', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค', TotalScore: 30, PassScore: 15, ActualScore: 17 },
+    { ID: 'GRA14', StudentID: 'USE5', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค', TotalScore: 30, PassScore: 15, ActualScore: 28 },
+    { ID: 'GRA15', StudentID: 'USE6', SubjectID: 'SUB1', TaskName: 'สอบกลางภาค', TotalScore: 30, PassScore: 15, ActualScore: 20 }
   ],
   MentalCheckins: [
-    { ID: 'MEN1', StudentID: 'USE2', Mood: 'สดใส',      Date: '2026-01-14', Notes: 'พร้อมเรียน' },
-    { ID: 'MEN2', StudentID: 'USE3', Mood: 'โอเคอยู่',   Date: '2026-01-14', Notes: '' },
-    { ID: 'MEN3', StudentID: 'USE4', Mood: 'หนักใจ',     Date: '2026-01-14', Notes: 'การบ้านเยอะ' },
-    { ID: 'MEN4', StudentID: 'USE5', Mood: 'สดใส',      Date: '2026-01-14', Notes: '' },
-    { ID: 'MEN5', StudentID: 'USE6', Mood: 'บอกไม่ถูก',  Date: '2026-01-14', Notes: '' },
-    { ID: 'MEN6', StudentID: 'USE2', Mood: 'โอเคอยู่',   Date: '2026-01-13', Notes: '' },
-    { ID: 'MEN7', StudentID: 'USE3', Mood: 'หนักใจมาก',  Date: '2026-01-13', Notes: 'สอบไม่ดี' },
-    { ID: 'MEN8', StudentID: 'USE4', Mood: 'โอเคอยู่',   Date: '2026-01-13', Notes: '' },
-    { ID: 'MEN9', StudentID: 'USE5', Mood: 'สดใส',      Date: '2026-01-13', Notes: '' },
-    { ID: 'MEN10', StudentID: 'USE6', Mood: 'หนักใจ',    Date: '2026-01-13', Notes: '' }
+    { ID: 'MEN1', StudentID: 'USE2', Mood: 'สดใส', Date: '2026-01-14', Notes: 'พร้อมเรียน' },
+    { ID: 'MEN2', StudentID: 'USE3', Mood: 'โอเคอยู่', Date: '2026-01-14', Notes: '' },
+    { ID: 'MEN3', StudentID: 'USE4', Mood: 'หนักใจ', Date: '2026-01-14', Notes: 'การบ้านเยอะ' },
+    { ID: 'MEN4', StudentID: 'USE5', Mood: 'สดใส', Date: '2026-01-14', Notes: '' },
+    { ID: 'MEN5', StudentID: 'USE6', Mood: 'บอกไม่ถูก', Date: '2026-01-14', Notes: '' },
+    { ID: 'MEN6', StudentID: 'USE2', Mood: 'โอเคอยู่', Date: '2026-01-13', Notes: '' },
+    { ID: 'MEN7', StudentID: 'USE3', Mood: 'หนักใจมาก', Date: '2026-01-13', Notes: 'สอบไม่ดี' },
+    { ID: 'MEN8', StudentID: 'USE4', Mood: 'โอเคอยู่', Date: '2026-01-13', Notes: '' },
+    { ID: 'MEN9', StudentID: 'USE5', Mood: 'สดใส', Date: '2026-01-13', Notes: '' },
+    { ID: 'MEN10', StudentID: 'USE6', Mood: 'หนักใจ', Date: '2026-01-13', Notes: '' }
   ],
   Terms: [
     { ID: 'TER1', TermName: '2/2569', Status: 'current' },
@@ -353,7 +294,7 @@ const MOCK = {
 };
 
 /* ============================================================
-   2) API LAYER  (GAS  <->  Mock fallback)
+   2) API LAYER
 ============================================================ */
 async function api(action, payload = {}, method = 'GET') {
   if (CONFIG.USE_MOCK) return mockApi(action, payload);
@@ -365,7 +306,7 @@ async function api(action, payload = {}, method = 'GET') {
     } else {
       res = await fetch(CONFIG.API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action, ...payload }),
         redirect: 'follow'
       });
@@ -397,40 +338,22 @@ function mockApi(action, p = {}) {
     case 'getGrades': return db.Grades;
     case 'getMentalCheckins': return db.MentalCheckins;
     case 'getTerms': return db.Terms;
-
     case 'createMission': {
-      const m = {
-        ID: genId(db.Missions, 'MIS'),
-        Title: p.Title,
-        SubjectID: p.SubjectID,
-        Status: p.Status || 'active',
-        CreatedAt: new Date().toISOString().slice(0, 10)
-      };
-      db.Missions.unshift(m);
-      return m;
+      const m = { ID: genId(db.Missions, 'MIS'), Title: p.Title, SubjectID: p.SubjectID, Status: p.Status || 'active', CreatedAt: new Date().toISOString().slice(0, 10) };
+      db.Missions.unshift(m); return m;
     }
     case 'saveGrade': {
       const students = db.Users.filter(u => u.Role === 'student');
       const created = [];
       students.forEach((s, i) => {
-        const g = {
-          ID: 'GRA' + (db.Grades.length + 1 + i),
-          StudentID: s.ID,
-          SubjectID: p.SubjectID,
-          TaskName: p.TaskName,
-          TotalScore: Number(p.TotalScore) || 0,
-          PassScore: Number(p.PassScore) || 0,
-          ActualScore: 0
-        };
-        db.Grades.push(g);
-        created.push(g);
+        const g = { ID: 'GRA' + (db.Grades.length + 1 + i), StudentID: s.ID, SubjectID: p.SubjectID, TaskName: p.TaskName, TotalScore: Number(p.TotalScore) || 0, PassScore: Number(p.PassScore) || 0, ActualScore: 0 };
+        db.Grades.push(g); created.push(g);
       });
       return created;
     }
     case 'createSubject': {
       const s = { ID: genId(db.Subjects, 'SUB'), Name: p.Name, TeacherID: 'USE1', Color: p.Color || '#FDE047' };
-      db.Subjects.push(s);
-      return s;
+      db.Subjects.push(s); return s;
     }
     case 'updateSubject': {
       const s = db.Subjects.find(x => x.ID === p.ID);
@@ -445,23 +368,13 @@ function mockApi(action, p = {}) {
     case 'createTerm': {
       if (p.Status === 'current') db.Terms.forEach(t => t.Status = 'closed');
       const t = { ID: genId(db.Terms, 'TER'), TermName: p.TermName, Status: p.Status || 'current' };
-      db.Terms.unshift(t);
-      return t;
+      db.Terms.unshift(t); return t;
     }
     case 'exportData': {
-      const rows = db[({ grades: 'Grades', scores: 'Grades', missions: 'Missions', students: 'Users',
-                         subjects: 'Subjects', mental: 'MentalCheckins', terms: 'Terms',
-                         classrooms: 'Classrooms' })[p.type]] || [];
-      return {
-        fileId: 'mock',
-        name: `kruboard_${p.type}_${Date.now()}.csv`,
-        url: '#',
-        downloadUrl: '#',
-        rows: rows.length
-      };
+      const rows = db[({ grades: 'Grades', scores: 'Grades', missions: 'Missions', students: 'Users', subjects: 'Subjects', mental: 'MentalCheckins', terms: 'Terms', classrooms: 'Classrooms' })[p.type]] || [];
+      return { fileId: 'mock', name: `kruboard_${p.type}_${Date.now()}.csv`, url: '#', downloadUrl: '#', rows: rows.length };
     }
-    default:
-      throw new Error('Unknown action: ' + action);
+    default: throw new Error('Unknown action: ' + action);
   }
 }
 
@@ -473,17 +386,13 @@ const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 const today = () => new Date().toISOString().slice(0, 10);
 
-const SUBJ_EMOJI = {
-  'คณิตศาสตร์': '➗', 'บูรณาการ': '🧩', 'ภาษาไทย': '🇹🇭',
-  'วิทยาศาสตร์': '🔬', 'อังกฤษ': '🔤', 'อื่นๆ': '✨'
-};
-
+const SUBJ_EMOJI = { 'คณิตศาสตร์': '➗', 'บูรณาการ': '🧩', 'ภาษาไทย': '🇹🇭', 'วิทยาศาสตร์': '🔬', 'อังกฤษ': '🔤', 'อื่นๆ': '✨' };
 const MOODS = [
-  { key: 'สดใส',      emoji: '😄', color: '#A7F3D0' },
-  { key: 'โอเคอยู่',   emoji: '🙂', color: '#FDE047' },
-  { key: 'หนักใจ',    emoji: '😟', color: '#FDBA74' },
+  { key: 'สดใส', emoji: '😄', color: '#A7F3D0' },
+  { key: 'โอเคอยู่', emoji: '🙂', color: '#FDE047' },
+  { key: 'หนักใจ', emoji: '😟', color: '#FDBA74' },
   { key: 'หนักใจมาก', emoji: '😫', color: '#FCA5A5' },
-  { key: 'บอกไม่ถูก',  emoji: '😐', color: '#D1D5DB' }
+  { key: 'บอกไม่ถูก', emoji: '😐', color: '#D1D5DB' }
 ];
 const moodOf = (k) => MOODS.find(m => m.key === k) || MOODS[4];
 
@@ -507,66 +416,47 @@ function toast(msg, type = 'ok') {
    4) STATE
 ============================================================ */
 const state = {
-  user: null,
-  students: [],
-  subjects: [],
-  classrooms: [],
-  missions: [],
-  grades: [],
-  mental: [],
-  terms: [],
+  user: null, students: [], subjects: [], classrooms: [],
+  missions: [], grades: [], mental: [], terms: [],
   loaded: false,
   ui: {
-    missionFilter: 'all',
-    sel: {},              // { attendance: 'SUB1', exp: 'SUB2', ... }
-    classTab: 'status',
-    expToggle: false,
-    attendance: {},       // { 'SUB1-USE2': 'present' }
-    expPoints: {},        // { 'USE2': 12 }
-    editingSubject: null
+    missionFilter: 'all', sel: {}, classTab: 'status',
+    expToggle: false, attendance: {}, expPoints: {}, editingSubject: null
   }
 };
 
 /* ============================================================
-   5) NAVIGATION MODEL
+   5) NAV
 ============================================================ */
 const NAV_SECTIONS = [
-  {
-    title: 'ภาพรวม', items: [
-      { id: 'dashboard', label: 'แดชบอร์ด', icon: '🏠' },
-      { id: 'missions',  label: 'ภารกิจ',   icon: '📋' },
-      { id: 'records',   label: 'บันทึกผล', icon: '📝' }
-    ]
-  },
-  {
-    title: 'ห้องเรียน', items: [
-      { id: 'attendance', label: 'เช็กชื่อ',            icon: '✅' },
-      { id: 'exp',        label: 'แจกคะแนน EXP',        icon: '⚡' },
-      { id: 'live',       label: 'ไลฟ์หน้าห้อง',         icon: '📡', badge: 'BETA' },
-      { id: 'tools',      label: 'เครื่องมือจัดการห้อง', icon: '🧰' },
-      { id: 'status',     label: 'สถานะห้องเรียน',       icon: '📊' },
-      { id: 'classrooms', label: 'ห้องเรียน',            icon: '🏫' },
-      { id: 'mental',     label: 'เช็กสภาพใจ',           icon: '💚' }
-    ]
-  },
-  {
-    title: 'วิชาการ', items: [
-      { id: 'subjects',  label: 'วิชา',              icon: '📚' },
-      { id: 'templates', label: 'จักรวาลเทมเพลต',    icon: '🌌' },
-      { id: 'gradebook', label: 'คะแนนเก็บ/ตัดเกรด',  icon: '🎯' },
-      { id: 'terms',     label: 'เทอม / Export',     icon: '📤' },
-      { id: 'insights',  label: 'ข้อมูลอินไซต์',       icon: '🔎' }
-    ]
-  }
+  { title: 'ภาพรวม', items: [
+    { id: 'dashboard', label: 'แดชบอร์ด', icon: '🏠' },
+    { id: 'missions', label: 'ภารกิจ', icon: '📋' },
+    { id: 'records', label: 'บันทึกผล', icon: '📝' }
+  ]},
+  { title: 'ห้องเรียน', items: [
+    { id: 'attendance', label: 'เช็กชื่อ', icon: '✅' },
+    { id: 'exp', label: 'แจกคะแนน EXP', icon: '⚡' },
+    { id: 'live', label: 'ไลฟ์หน้าห้อง', icon: '📡', badge: 'BETA' },
+    { id: 'tools', label: 'เครื่องมือจัดการห้อง', icon: '🧰' },
+    { id: 'status', label: 'สถานะห้องเรียน', icon: '📊' },
+    { id: 'classrooms', label: 'ห้องเรียน', icon: '🏫' },
+    { id: 'mental', label: 'เช็กสภาพใจ', icon: '💚' }
+  ]},
+  { title: 'วิชาการ', items: [
+    { id: 'subjects', label: 'วิชา', icon: '📚' },
+    { id: 'templates', label: 'จักรวาลเทมเพลต', icon: '🌌' },
+    { id: 'gradebook', label: 'คะแนนเก็บ/ตัดเกรด', icon: '🎯' },
+    { id: 'terms', label: 'เทอม / Export', icon: '📤' },
+    { id: 'insights', label: 'ข้อมูลอินไซต์', icon: '🔎' }
+  ]}
 ];
-
 const NAV_BOTTOM = [
-  { id: 'changelog', label: 'มีอะไรใหม่',  icon: '✨' },
-  { id: 'referral',  label: 'แนะนำเพื่อน', icon: '🎁' },
-  { id: 'faq',       label: 'FAQ',        icon: '❓' },
-  { id: 'report',    label: 'แจ้งปัญหา',   icon: '🐞' }
+  { id: 'changelog', label: 'มีอะไรใหม่', icon: '✨' },
+  { id: 'referral', label: 'แนะนำเพื่อน', icon: '🎁' },
+  { id: 'faq', label: 'FAQ', icon: '❓' },
+  { id: 'report', label: 'แจ้งปัญหา', icon: '🐞' }
 ];
-
 const PAGE_TITLES = {
   dashboard: 'แดชบอร์ด', missions: 'ภารกิจ', records: 'บันทึกผล',
   attendance: 'เช็กชื่อ', exp: 'แจกคะแนน EXP', live: 'ไลฟ์หน้าห้อง',
@@ -576,9 +466,6 @@ const PAGE_TITLES = {
   changelog: 'มีอะไรใหม่', referral: 'แนะนำเพื่อน', faq: 'FAQ', report: 'แจ้งปัญหา'
 };
 
-/* ============================================================
-   6) SIDEBAR
-============================================================ */
 function navLink(item) {
   return `
     <a href="#/${item.id}" data-nav="${item.id}"
@@ -588,7 +475,6 @@ function navLink(item) {
       ${item.badge ? `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded border-2 border-black bg-[#FDE047]">${item.badge}</span>` : ''}
     </a>`;
 }
-
 function renderSidebar() {
   $('#sidebarNav').innerHTML = NAV_SECTIONS.map(sec => `
     <div class="pt-3 pb-1 px-2 text-[11px] font-bold tracking-wide text-gray-400">${sec.title}</div>
@@ -596,13 +482,12 @@ function renderSidebar() {
   `).join('');
   $('#sidebarBottom').innerHTML = NAV_BOTTOM.map(navLink).join('');
 }
-
 function markActiveNav(page) {
   $$('.nav-item').forEach(a => a.classList.toggle('active', a.dataset.nav === page));
 }
 
 /* ============================================================
-   7) COMPONENTS
+   6) COMPONENTS
 ============================================================ */
 function pageHead(title, subtitle, actions = '') {
   return `
@@ -614,7 +499,6 @@ function pageHead(title, subtitle, actions = '') {
       <div class="flex gap-2 flex-wrap">${actions}</div>
     </div>`;
 }
-
 function statCard(label, value, icon, bg = '#ffffff') {
   return `
     <div class="nb-card p-4" style="background:${bg}">
@@ -625,16 +509,13 @@ function statCard(label, value, icon, bg = '#ffffff') {
       <div class="text-2xl font-bold mt-1.5">${value}</div>
     </div>`;
 }
-
 function emptyBear(title = 'ยังไม่มีภารกิจ', sub = 'น้องหมีหลับอยู่ เพราะยังไม่มีอะไรให้ทำ') {
-  return `
-    <div class="nb-card p-10 text-center">
-      <div class="text-7xl select-none">🐻💤</div>
-      <div class="font-bold mt-3 text-lg">${title}</div>
-      <div class="text-sm text-gray-500 mt-1">${sub}</div>
-    </div>`;
+  return `<div class="nb-card p-10 text-center">
+    <div class="text-7xl select-none">🐻💤</div>
+    <div class="font-bold mt-3 text-lg">${title}</div>
+    <div class="text-sm text-gray-500 mt-1">${sub}</div>
+  </div>`;
 }
-
 function missionCard(m) {
   const subj = state.subjects.find(s => s.ID === m.SubjectID);
   const done = m.Status === 'done';
@@ -645,9 +526,7 @@ function missionCard(m) {
       <div class="flex-1 min-w-0">
         <div class="font-bold ${done ? 'line-through text-gray-400' : ''} truncate">${esc(m.Title)}</div>
         <div class="text-[11px] text-gray-500 mt-1 flex flex-wrap gap-1.5 items-center">
-          <span>${esc(subj ? subj.Name : 'ไม่ระบุวิชา')}</span>
-          <span>•</span>
-          <span>${esc(m.CreatedAt)}</span>
+          <span>${esc(subj ? subj.Name : 'ไม่ระบุวิชา')}</span><span>•</span><span>${esc(m.CreatedAt)}</span>
         </div>
       </div>
       <span class="text-[10px] font-bold px-2 py-1 rounded-md border-2 border-black shrink-0 ${done ? 'bg-[#A7F3D0]' : 'bg-[#FDE047]'}">
@@ -655,7 +534,6 @@ function missionCard(m) {
       </span>
     </div>`;
 }
-
 function subjectGrid(mode = 'pick', page = '') {
   return `
     <div class="grid grid-cols-2 gap-3 sm:gap-4">
@@ -671,59 +549,58 @@ function subjectGrid(mode = 'pick', page = '') {
           </div>`;
         return mode === 'link'
           ? `<a href="#/${page}/${s.ID}" class="nb-card p-5 text-left hover:brightness-95 active:translate-x-[2px] active:translate-y-[2px] transition block">${inner}</a>`
-          : `<button data-act="pick" data-page="${page}" data-subject="${s.ID}"
-                     class="nb-card p-5 text-left hover:brightness-95 active:translate-x-[2px] active:translate-y-[2px] transition">${inner}</button>`;
+          : `<button data-act="pick" data-page="${page}" data-subject="${s.ID}" class="nb-card p-5 text-left hover:brightness-95 active:translate-x-[2px] active:translate-y-[2px] transition">${inner}</button>`;
       }).join('')}
     </div>`;
 }
-
 function backBar(page, subjectId) {
   const s = state.subjects.find(x => x.ID === subjectId);
-  return `
-    <div class="flex items-center gap-2 mb-4 flex-wrap">
-      <button data-act="unpick" data-page="${page}" class="nb-btn nb-btn-w nb-btn-s">← เปลี่ยนวิชา</button>
-      <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${s?.Color || '#fff'}">
-        ${esc(s?.Name || '')}
-      </span>
-    </div>`;
+  return `<div class="flex items-center gap-2 mb-4 flex-wrap">
+    <button data-act="unpick" data-page="${page}" class="nb-btn nb-btn-w nb-btn-s">← เปลี่ยนวิชา</button>
+    <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${s?.Color || '#fff'}">${esc(s?.Name || '')}</span>
+  </div>`;
 }
-
-function studentsOfSubject(subjectId) {
-  // prototype: ทุกห้องของวิชานั้นมีนักเรียนชุดเดียวกัน
-  return state.students;
+function studentsOfSubject() { return state.students; }
+function subjectTasks(subjectId) {
+  const map = {};
+  state.grades.filter(g => g.SubjectID === subjectId).forEach(g => {
+    if (!map[g.TaskName]) map[g.TaskName] = { TaskName: g.TaskName, TotalScore: Number(g.TotalScore) || 0, PassScore: Number(g.PassScore) || 0, scores: {} };
+    map[g.TaskName].scores[g.StudentID] = Number(g.ActualScore) || 0;
+  });
+  return Object.values(map);
+}
+function loadingBlock() {
+  return `<div class="grid place-items-center py-24">
+    <div class="nb-card px-8 py-6 text-center">
+      <div class="text-4xl animate-bounce">🐻</div>
+      <div class="font-bold mt-2">กำลังโหลดข้อมูล...</div>
+    </div>
+  </div>`;
 }
 
 /* ============================================================
-   8) PAGES
+   7) PAGES
 ============================================================ */
 const PAGES = {};
 
-/* ---------- 8.1 Dashboard ---------- */
 PAGES.dashboard = () => {
   if (!state.loaded) return loadingBlock();
-
   const active = state.missions.filter(m => m.Status === 'active');
-  const done   = state.missions.filter(m => m.Status === 'done');
+  const done = state.missions.filter(m => m.Status === 'done');
   const recent = state.missions.slice(0, 4);
   const mentalToday = state.mental.filter(m => m.Date === '2026-01-14');
   const happy = mentalToday.filter(m => ['สดใส', 'โอเคอยู่'].includes(m.Mood)).length;
 
   return `
-    ${pageHead(
-      `สวัสดี ${esc(state.user?.Name || 'ครู')} 👋`,
-      'ภาพรวมห้องเรียนของคุณวันนี้',
-      `<a href="#/missions" class="nb-btn nb-btn-y">+ สร้างภารกิจ</a>`
-    )}
-
+    ${pageHead(`สวัสดี ${esc(state.user?.Name || 'ครู')} 👋`, 'ภาพรวมห้องเรียนของคุณวันนี้',
+      `<a href="#/missions" class="nb-btn nb-btn-y">+ สร้างภารกิจ</a>`)}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
       ${statCard('วิชาทั้งหมด', state.subjects.length, '📚')}
       ${statCard('ห้องเรียน', state.classrooms.length, '🏫')}
       ${statCard('ภารกิจค้าง', active.length, '📋', '#FDE047')}
       ${statCard('นักเรียน', state.students.length, '🧑‍🎓')}
     </div>
-
     <div class="grid lg:grid-cols-3 gap-4">
-
       <div class="lg:col-span-2 space-y-4">
         <div class="nb-card p-4">
           <div class="flex items-center justify-between mb-3">
@@ -734,26 +611,16 @@ PAGES.dashboard = () => {
             ${recent.length ? recent.map(missionCard).join('') : emptyBear()}
           </div>
         </div>
-
         <div class="nb-card p-4">
           <h2 class="font-bold text-lg mb-3">⚡ ทางลัด</h2>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <a href="#/attendance" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]">
-              <div class="text-2xl">✅</div><div class="text-xs font-bold mt-1">เช็กชื่อ</div>
-            </a>
-            <a href="#/exp" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]">
-              <div class="text-2xl">⚡</div><div class="text-xs font-bold mt-1">แจก EXP</div>
-            </a>
-            <a href="#/gradebook" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]">
-              <div class="text-2xl">🎯</div><div class="text-xs font-bold mt-1">ตัดเกรด</div>
-            </a>
-            <a href="#/mental" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]">
-              <div class="text-2xl">💚</div><div class="text-xs font-bold mt-1">สภาพใจ</div>
-            </a>
+            <a href="#/attendance" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]"><div class="text-2xl">✅</div><div class="text-xs font-bold mt-1">เช็กชื่อ</div></a>
+            <a href="#/exp" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]"><div class="text-2xl">⚡</div><div class="text-xs font-bold mt-1">แจก EXP</div></a>
+            <a href="#/gradebook" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]"><div class="text-2xl">🎯</div><div class="text-xs font-bold mt-1">ตัดเกรด</div></a>
+            <a href="#/mental" class="nb-card !shadow-[2px_2px_0_#000] p-3 text-center hover:bg-[#FEF9C3]"><div class="text-2xl">💚</div><div class="text-xs font-bold mt-1">สภาพใจ</div></a>
           </div>
         </div>
       </div>
-
       <div class="space-y-4">
         <div class="nb-card p-4">
           <h2 class="font-bold text-lg mb-3">💚 สภาพใจวันนี้</h2>
@@ -768,8 +635,7 @@ PAGES.dashboard = () => {
             ${MOODS.map(m => {
               const c = mentalToday.filter(x => x.Mood === m.key).length;
               return `<div class="flex items-center gap-2 text-xs">
-                <span class="w-5">${m.emoji}</span>
-                <span class="w-16 text-gray-600">${m.key}</span>
+                <span class="w-5">${m.emoji}</span><span class="w-16 text-gray-600">${m.key}</span>
                 <div class="flex-1 h-3 rounded-full border-2 border-black bg-white overflow-hidden">
                   <div class="h-full" style="width:${mentalToday.length ? (c / mentalToday.length) * 100 : 0}%;background:${m.color}"></div>
                 </div>
@@ -779,7 +645,6 @@ PAGES.dashboard = () => {
           </div>
           <a href="#/mental" class="nb-btn nb-btn-w nb-btn-s w-full mt-3">ดูทั้งหมด</a>
         </div>
-
         <div class="nb-card p-4" style="background:#FDE047">
           <h2 class="font-bold">🎯 ภารกิจที่เสร็จแล้ว</h2>
           <div class="text-3xl font-bold mt-1">${done.length}</div>
@@ -789,183 +654,124 @@ PAGES.dashboard = () => {
     </div>`;
 };
 
-function loadingBlock() {
-  return `
-    <div class="grid place-items-center py-24">
-      <div class="nb-card px-8 py-6 text-center">
-        <div class="text-4xl animate-bounce">🐻</div>
-        <div class="font-bold mt-2">กำลังโหลดข้อมูล...</div>
-      </div>
-    </div>`;
-}
-
-/* ---------- 8.2 Missions ---------- */
 PAGES.missions = () => {
   if (!state.loaded) return loadingBlock();
   const f = state.ui.missionFilter;
   const list = f === 'all' ? state.missions : state.missions.filter(m => m.Status === f);
-
   return `
     ${pageHead('ภารกิจ 📋', 'จัดการงานและกิจกรรมในห้องเรียน',
       `<button class="nb-btn nb-btn-y" data-act="open-mission">+ สร้างภารกิจใหม่</button>`)}
-
     <div class="flex gap-2 mb-4 flex-wrap">
       ${[['all', 'ทั้งหมด'], ['active', 'กำลังดำเนินการ'], ['done', 'เสร็จสิ้น']].map(([k, label]) => `
         <button class="nb-tab ${f === k ? 'active' : ''}" data-act="filter-mission" data-filter="${k}">${label}</button>
       `).join('')}
     </div>
-
     <div class="space-y-3">
       ${list.length ? list.map(missionCard).join('') : emptyBear('ยังไม่มีภารกิจในหมวดนี้', 'กดปุ่ม “สร้างภารกิจใหม่” เพื่อเริ่มต้น')}
     </div>`;
 };
 
-/* ---------- 8.3 Records ---------- */
 PAGES.records = () => {
   if (!state.loaded) return loadingBlock();
   const rows = state.grades.slice(-12).reverse();
-
   return `
     ${pageHead('บันทึกผล 📝', 'รายการบันทึกคะแนนล่าสุดทั้งหมด',
       `<button class="nb-btn nb-btn-y" data-act="open-grade" data-subject="${state.subjects[0]?.ID || ''}">+ บันทึกผล</button>`)}
-
-    <div class="nb-card overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead class="bg-[#FDE047] border-b-2 border-black">
-            <tr>
-              <th class="text-left px-4 py-2.5 font-bold">นักเรียน</th>
-              <th class="text-left px-4 py-2.5 font-bold">วิชา</th>
-              <th class="text-left px-4 py-2.5 font-bold">งาน</th>
-              <th class="text-right px-4 py-2.5 font-bold">คะแนน</th>
-              <th class="text-right px-4 py-2.5 font-bold">ผล</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows.length ? rows.map(g => {
-              const st = state.students.find(s => s.ID === g.StudentID);
-              const subj = state.subjects.find(s => s.ID === g.SubjectID);
-              const pass = Number(g.ActualScore) >= Number(g.PassScore);
-              return `<tr class="border-b border-gray-200 last:border-0">
-                <td class="px-4 py-2.5">${esc(st?.Name || g.StudentID)}</td>
-                <td class="px-4 py-2.5">${esc(subj?.Name || '-')}</td>
-                <td class="px-4 py-2.5">${esc(g.TaskName)}</td>
-                <td class="px-4 py-2.5 text-right font-bold">${g.ActualScore}/${g.TotalScore}</td>
-                <td class="px-4 py-2.5 text-right">
-                  <span class="text-[10px] font-bold px-2 py-0.5 rounded border-2 border-black ${pass ? 'bg-[#A7F3D0]' : 'bg-[#FCA5A5]'}">
-                    ${pass ? 'ผ่าน' : 'ไม่ผ่าน'}
-                  </span>
-                </td>
-              </tr>`;
-            }).join('') : `<tr><td colspan="5" class="px-4 py-10 text-center text-gray-500">ยังไม่มีการบันทึกผล</td></tr>`}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
+    <div class="nb-card overflow-hidden"><div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-[#FDE047] border-b-2 border-black"><tr>
+          <th class="text-left px-4 py-2.5 font-bold">นักเรียน</th>
+          <th class="text-left px-4 py-2.5 font-bold">วิชา</th>
+          <th class="text-left px-4 py-2.5 font-bold">งาน</th>
+          <th class="text-right px-4 py-2.5 font-bold">คะแนน</th>
+          <th class="text-right px-4 py-2.5 font-bold">ผล</th>
+        </tr></thead>
+        <tbody>
+          ${rows.length ? rows.map(g => {
+            const st = state.students.find(s => s.ID === g.StudentID);
+            const subj = state.subjects.find(s => s.ID === g.SubjectID);
+            const pass = Number(g.ActualScore) >= Number(g.PassScore);
+            return `<tr class="border-b border-gray-200 last:border-0">
+              <td class="px-4 py-2.5">${esc(st?.Name || g.StudentID)}</td>
+              <td class="px-4 py-2.5">${esc(subj?.Name || '-')}</td>
+              <td class="px-4 py-2.5">${esc(g.TaskName)}</td>
+              <td class="px-4 py-2.5 text-right font-bold">${g.ActualScore}/${g.TotalScore}</td>
+              <td class="px-4 py-2.5 text-right"><span class="text-[10px] font-bold px-2 py-0.5 rounded border-2 border-black ${pass ? 'bg-[#A7F3D0]' : 'bg-[#FCA5A5]'}">${pass ? 'ผ่าน' : 'ไม่ผ่าน'}</span></td>
+            </tr>`;
+          }).join('') : `<tr><td colspan="5" class="px-4 py-10 text-center text-gray-500">ยังไม่มีการบันทึกผล</td></tr>`}
+        </tbody>
+      </table>
+    </div></div>`;
 };
 
-/* ---------- 8.4 Attendance ---------- */
 PAGES.attendance = () => {
   if (!state.loaded) return loadingBlock();
   const sel = state.ui.sel.attendance;
-  if (!sel) {
-    return `${pageHead('เช็กชื่อ ✅', 'เลือกวิชาที่ต้องการเช็กชื่อ')}
-            ${subjectGrid('pick', 'attendance')}`;
-  }
-
+  if (!sel) return `${pageHead('เช็กชื่อ ✅', 'เลือกวิชาที่ต้องการเช็กชื่อ')}${subjectGrid('pick', 'attendance')}`;
   const students = studentsOfSubject(sel);
   const marks = state.ui.attendance;
   const count = (k) => students.filter(s => (marks[sel + '-' + s.ID] || 'present') === k).length;
-
   return `
     ${pageHead('เช็กชื่อ ✅', 'แตะเพื่อสลับสถานะ มา / สาย / ขาด')}
     ${backBar('attendance', sel)}
-
     <div class="grid grid-cols-3 gap-2.5 mb-4">
       ${statCard('มา', count('present'), '✅', '#A7F3D0')}
       ${statCard('สาย', count('late'), '⏰', '#FDE047')}
       ${statCard('ขาด', count('absent'), '❌', '#FCA5A5')}
     </div>
-
     <div class="space-y-2.5">
       ${students.map(s => {
         const st = marks[sel + '-' + s.ID] || 'present';
         const map = {
           present: { label: 'มา', cls: 'bg-[#A7F3D0]', emoji: '✅' },
-          late:    { label: 'สาย', cls: 'bg-[#FDE047]', emoji: '⏰' },
-          absent:  { label: 'ขาด', cls: 'bg-[#FCA5A5]', emoji: '❌' }
+          late: { label: 'สาย', cls: 'bg-[#FDE047]', emoji: '⏰' },
+          absent: { label: 'ขาด', cls: 'bg-[#FCA5A5]', emoji: '❌' }
         };
         const cur = map[st];
-        return `
-          <div class="nb-card p-3 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full border-2 border-black grid place-items-center text-lg bg-white shrink-0">${s.Avatar || '🧑'}</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-bold truncate">${esc(s.Name)}</div>
-              <div class="text-[11px] text-gray-500">${esc(s.Email)}</div>
-            </div>
-            <button class="nb-btn nb-btn-s ${cur.cls}" data-act="cycle-att" data-subject="${sel}" data-student="${s.ID}">
-              ${cur.emoji} ${cur.label}
-            </button>
-          </div>`;
+        return `<div class="nb-card p-3 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full border-2 border-black grid place-items-center text-lg bg-white shrink-0">${s.Avatar || '🧑'}</div>
+          <div class="flex-1 min-w-0"><div class="font-bold truncate">${esc(s.Name)}</div><div class="text-[11px] text-gray-500">${esc(s.Email)}</div></div>
+          <button class="nb-btn nb-btn-s ${cur.cls}" data-act="cycle-att" data-subject="${sel}" data-student="${s.ID}">${cur.emoji} ${cur.label}</button>
+        </div>`;
       }).join('')}
     </div>
-
     <button class="nb-btn nb-btn-k w-full mt-4" data-act="save-att">💾 บันทึกการเช็กชื่อ</button>`;
 };
 
-/* ---------- 8.5 EXP ---------- */
 PAGES.exp = () => {
   if (!state.loaded) return loadingBlock();
   const sel = state.ui.sel.exp;
-  if (!sel) {
-    return `${pageHead('แจกคะแนน EXP ⚡', 'เลือกวิชาที่ต้องการแจกคะแนน')}
-            ${subjectGrid('pick', 'exp')}`;
-  }
+  if (!sel) return `${pageHead('แจกคะแนน EXP ⚡', 'เลือกวิชาที่ต้องการแจกคะแนน')}${subjectGrid('pick', 'exp')}`;
   const students = studentsOfSubject(sel);
-
   return `
     ${pageHead('แจกคะแนน EXP ⚡', 'ให้คะแนนความพยายามแก่นักเรียน')}
     ${backBar('exp', sel)}
-
     <div class="space-y-2.5">
       ${students.map(s => {
         const pts = state.ui.expPoints[s.ID] || 0;
-        return `
-          <div class="nb-card p-3 flex items-center gap-3 flex-wrap">
-            <div class="w-10 h-10 rounded-full border-2 border-black grid place-items-center text-lg bg-white shrink-0">${s.Avatar || '🧑'}</div>
-            <div class="flex-1 min-w-0">
-              <div class="font-bold truncate">${esc(s.Name)}</div>
-              <div class="text-[11px] text-gray-500">EXP สะสม: <b>${pts}</b></div>
-            </div>
-            <div class="flex gap-1.5">
-              ${[1, 5, 10].map(n => `
-                <button class="nb-btn nb-btn-s nb-btn-y" data-act="give-exp" data-student="${s.ID}" data-pts="${n}">+${n}</button>
-              `).join('')}
-            </div>
-          </div>`;
+        return `<div class="nb-card p-3 flex items-center gap-3 flex-wrap">
+          <div class="w-10 h-10 rounded-full border-2 border-black grid place-items-center text-lg bg-white shrink-0">${s.Avatar || '🧑'}</div>
+          <div class="flex-1 min-w-0"><div class="font-bold truncate">${esc(s.Name)}</div><div class="text-[11px] text-gray-500">EXP สะสม: <b>${pts}</b></div></div>
+          <div class="flex gap-1.5">
+            ${[1, 5, 10].map(n => `<button class="nb-btn nb-btn-s nb-btn-y" data-act="give-exp" data-student="${s.ID}" data-pts="${n}">+${n}</button>`).join('')}
+          </div>
+        </div>`;
       }).join('')}
     </div>`;
 };
 
-/* ---------- 8.6 Live (BETA) ---------- */
 PAGES.live = () => {
   return `
-    ${pageHead('ไลฟ์หน้าห้อง 📡', 'ถ่ายทอดบรรยากาศห้องเรียนให้ผู้ปกครอง',
-      `<span class="nb-btn nb-btn-y nb-btn-s">BETA</span>`)}
-
+    ${pageHead('ไลฟ์หน้าห้อง 📡', 'ถ่ายทอดบรรยากาศห้องเรียนให้ผู้ปกครอง', `<span class="nb-btn nb-btn-y nb-btn-s">BETA</span>`)}
     <div class="nb-card p-8 text-center">
       <div class="text-6xl mb-3">📡</div>
       <h2 class="text-xl font-bold">ยังอยู่ในช่วงพัฒนา</h2>
-      <p class="text-sm text-gray-500 mt-2 max-w-md mx-auto">
-        ฟีเจอร์ไลฟ์หน้าห้องจะเปิดให้ใช้งานในเทอมถัดไป
-        คุณจะสามารถแชร์ภาพบรรยากาศการเรียนแบบเรียลไทม์ให้ผู้ปกครองได้
-      </p>
+      <p class="text-sm text-gray-500 mt-2 max-w-md mx-auto">ฟีเจอร์ไลฟ์หน้าห้องจะเปิดให้ใช้งานในเทอมถัดไป</p>
       <div class="mt-5 flex flex-wrap gap-2 justify-center">
         <button class="nb-btn nb-btn-w" data-act="notify">🔔 แจ้งเตือนฉันเมื่อพร้อม</button>
         <a href="#/dashboard" class="nb-btn nb-btn-y">กลับแดชบอร์ด</a>
       </div>
     </div>
-
     <div class="grid sm:grid-cols-3 gap-3 mt-4">
       ${statCard('กล้องที่รองรับ', '2', '📷')}
       ${statCard('ผู้ชมสูงสุด', '50', '👨‍👩‍👧')}
@@ -973,28 +779,21 @@ PAGES.live = () => {
     </div>`;
 };
 
-/* ---------- 8.7 Tools ---------- */
 PAGES.tools = () => {
   if (!state.loaded) return loadingBlock();
   const sel = state.ui.sel.tools;
-  if (!sel) {
-    return `${pageHead('เครื่องมือจัดการห้อง 🧰', 'เลือกวิชาที่ต้องการใช้เครื่องมือ')}
-            ${subjectGrid('pick', 'tools')}`;
-  }
-
+  if (!sel) return `${pageHead('เครื่องมือจัดการห้อง 🧰', 'เลือกวิชาที่ต้องการใช้เครื่องมือ')}${subjectGrid('pick', 'tools')}`;
   const tools = [
-    { icon: '🎲', name: 'สุ่มชื่อนักเรียน',  desc: 'สุ่มเรียกตอบแบบไม่ซ้ำ' },
-    { icon: '⏱️', name: 'จับเวลา',           desc: 'นับถอยหลังทำกิจกรรม' },
-    { icon: '👥', name: 'แบ่งกลุ่ม',          desc: 'แบ่งกลุ่มอัตโนมัติ' },
-    { icon: '🔔', name: 'สัญญาณเงียบ',       desc: 'แจ้งเตือนระดับเสียง' },
-    { icon: '🎯', name: 'ตัวนับคะแนน',       desc: 'นับคะแนนสองทีม' },
-    { icon: '📋', name: 'เช็กลิสต์',          desc: 'รายการสิ่งที่ต้องทำ' }
+    { icon: '🎲', name: 'สุ่มชื่อนักเรียน', desc: 'สุ่มเรียกตอบแบบไม่ซ้ำ' },
+    { icon: '⏱️', name: 'จับเวลา', desc: 'นับถอยหลังทำกิจกรรม' },
+    { icon: '👥', name: 'แบ่งกลุ่ม', desc: 'แบ่งกลุ่มอัตโนมัติ' },
+    { icon: '🔔', name: 'สัญญาณเงียบ', desc: 'แจ้งเตือนระดับเสียง' },
+    { icon: '🎯', name: 'ตัวนับคะแนน', desc: 'นับคะแนนสองทีม' },
+    { icon: '📋', name: 'เช็กลิสต์', desc: 'รายการสิ่งที่ต้องทำ' }
   ];
-
   return `
     ${pageHead('เครื่องมือจัดการห้อง 🧰', 'เครื่องมือช่วยบริหารห้องเรียน')}
     ${backBar('tools', sel)}
-
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
       ${tools.map(t => `
         <button class="nb-card p-4 text-left hover:bg-[#FEF9C3] active:translate-x-[2px] active:translate-y-[2px] transition" data-act="tool" data-name="${esc(t.name)}">
@@ -1006,84 +805,60 @@ PAGES.tools = () => {
     </div>`;
 };
 
-/* ---------- 8.8 Classroom status ---------- */
 PAGES.status = () => {
   if (!state.loaded) return loadingBlock();
   const sel = state.ui.sel.status;
-  if (!sel) {
-    return `${pageHead('สถานะห้องเรียน 📊', 'เลือกวิชาที่ต้องการดูสถานะ')}
-            ${subjectGrid('pick', 'status')}`;
-  }
+  if (!sel) return `${pageHead('สถานะห้องเรียน 📊', 'เลือกวิชาที่ต้องการดูสถานะ')}${subjectGrid('pick', 'status')}`;
   const rooms = state.classrooms.filter(c => c.SubjectID === sel);
   const students = studentsOfSubject(sel);
-
   return `
     ${pageHead('สถานะห้องเรียน 📊', 'ภาพรวมความคืบหน้าของห้องเรียน')}
     ${backBar('status', sel)}
-
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
       ${statCard('ห้องเรียน', rooms.length, '🏫')}
       ${statCard('นักเรียน', students.length, '🧑‍🎓')}
       ${statCard('ภารกิจ', state.missions.filter(m => m.SubjectID === sel).length, '📋', '#FDE047')}
       ${statCard('งานเก็บคะแนน', subjectTasks(sel).length, '🎯')}
     </div>
-
     <div class="nb-card p-4">
       <h2 class="font-bold text-lg mb-3">ความคืบหน้าห้องเรียน</h2>
       <div class="space-y-3">
         ${rooms.map(r => {
           const pct = Math.min(100, 40 + r.StudentCount * 8);
-          return `
-            <div>
-              <div class="flex justify-between text-xs font-bold mb-1">
-                <span>${esc(r.Name)}</span><span>${pct}%</span>
-              </div>
-              <div class="h-4 rounded-full border-2 border-black bg-white overflow-hidden">
-                <div class="h-full" style="width:${pct}%;background:#FDE047"></div>
-              </div>
-            </div>`;
+          return `<div><div class="flex justify-between text-xs font-bold mb-1"><span>${esc(r.Name)}</span><span>${pct}%</span></div>
+            <div class="h-4 rounded-full border-2 border-black bg-white overflow-hidden">
+              <div class="h-full" style="width:${pct}%;background:#FDE047"></div>
+            </div></div>`;
         }).join('') || `<div class="text-sm text-gray-500">ยังไม่มีห้องเรียนในวิชานี้</div>`}
       </div>
     </div>`;
 };
 
-/* ---------- 8.9 Classrooms ---------- */
 PAGES.classrooms = (param) => {
   if (!state.loaded) return loadingBlock();
-
   if (!param) {
     return `
       ${pageHead('ห้องเรียน 🏫', 'ห้องเรียนทั้งหมดของคุณ')}
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
         ${state.classrooms.map(c => {
           const subj = state.subjects.find(s => s.ID === c.SubjectID);
-          return `
-            <a href="#/classrooms/${c.ID}" class="nb-card p-4 block hover:bg-[#FEF9C3] active:translate-x-[2px] active:translate-y-[2px] transition">
-              <div class="flex items-start justify-between">
-                <div class="w-11 h-11 rounded-xl border-2 border-black grid place-items-center text-xl" style="background:${subj?.Color || '#eee'}">
-                  ${SUBJ_EMOJI[subj?.Name] || '🏫'}
-                </div>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded border-2 border-black bg-white">${c.StudentCount} คน</span>
-              </div>
-              <div class="font-bold text-lg mt-2">${esc(c.Name)}</div>
-              <div class="text-[11px] text-gray-500 mt-1">${esc(subj?.Name || 'ไม่ระบุวิชา')}</div>
-            </a>`;
+          return `<a href="#/classrooms/${c.ID}" class="nb-card p-4 block hover:bg-[#FEF9C3] active:translate-x-[2px] active:translate-y-[2px] transition">
+            <div class="flex items-start justify-between">
+              <div class="w-11 h-11 rounded-xl border-2 border-black grid place-items-center text-xl" style="background:${subj?.Color || '#eee'}">${SUBJ_EMOJI[subj?.Name] || '🏫'}</div>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded border-2 border-black bg-white">${c.StudentCount} คน</span>
+            </div>
+            <div class="font-bold text-lg mt-2">${esc(c.Name)}</div>
+            <div class="text-[11px] text-gray-500 mt-1">${esc(subj?.Name || 'ไม่ระบุวิชา')}</div>
+          </a>`;
         }).join('')}
       </div>`;
   }
-
   const room = state.classrooms.find(c => c.ID === param);
   if (!room) return `${pageHead('ไม่พบห้องเรียน', '')}<div class="nb-card p-8 text-center">🐻 ไม่พบห้องเรียนนี้</div>`;
-
   const subj = state.subjects.find(s => s.ID === room.SubjectID);
   const students = state.students;
   const tab = state.ui.classTab;
-
-  const tabs = [
-    ['status', 'ดูสถานะ'],
-    ['student-view', 'มุมมองนักเรียน'],
-    ['students', 'นักเรียน']
-  ];
+  const tabs = [['status', 'ดูสถานะ'], ['student-view', 'มุมมองนักเรียน'], ['students', 'นักเรียน']];
 
   const tabContent = {
     status: `
@@ -1099,61 +874,43 @@ PAGES.classrooms = (param) => {
           const got = rows.reduce((a, b) => a + Number(b.ActualScore || 0), 0);
           const max = rows.reduce((a, b) => a + Number(b.TotalScore || 0), 0);
           const pct = max ? Math.round((got / max) * 100) : 0;
-          return `
-            <div class="mb-2.5">
-              <div class="flex justify-between text-xs font-bold mb-1">
-                <span>${esc(s.Name)}</span><span>${got}/${max || 0} (${pct}%)</span>
-              </div>
-              <div class="h-3 rounded-full border-2 border-black bg-white overflow-hidden">
-                <div class="h-full" style="width:${pct}%;background:${pct >= 60 ? '#A7F3D0' : pct >= 40 ? '#FDE047' : '#FCA5A5'}"></div>
-              </div>
-            </div>`;
+          return `<div class="mb-2.5"><div class="flex justify-between text-xs font-bold mb-1"><span>${esc(s.Name)}</span><span>${got}/${max || 0} (${pct}%)</span></div>
+            <div class="h-3 rounded-full border-2 border-black bg-white overflow-hidden">
+              <div class="h-full" style="width:${pct}%;background:${pct >= 60 ? '#A7F3D0' : pct >= 40 ? '#FDE047' : '#FCA5A5'}"></div>
+            </div></div>`;
         }).join('')}
       </div>`,
-
     'student-view': `
       <div class="grid sm:grid-cols-2 gap-3">
         ${students.map(s => {
           const checkin = state.mental.filter(m => m.StudentID === s.ID).slice(-1)[0];
           const mood = checkin ? moodOf(checkin.Mood) : moodOf('บอกไม่ถูก');
-          return `
-            <div class="nb-card p-4 flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full border-2 border-black grid place-items-center text-2xl bg-white shrink-0">${s.Avatar || '🧑'}</div>
-              <div class="flex-1 min-w-0">
-                <div class="font-bold truncate">${esc(s.Name)}</div>
-                <div class="text-[11px] text-gray-500">สภาพใจล่าสุด</div>
-              </div>
-              <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black" style="background:${mood.color}">
-                ${mood.emoji} ${mood.key}
-              </span>
-            </div>`;
+          return `<div class="nb-card p-4 flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full border-2 border-black grid place-items-center text-2xl bg-white shrink-0">${s.Avatar || '🧑'}</div>
+            <div class="flex-1 min-w-0"><div class="font-bold truncate">${esc(s.Name)}</div><div class="text-[11px] text-gray-500">สภาพใจล่าสุด</div></div>
+            <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black" style="background:${mood.color}">${mood.emoji} ${mood.key}</span>
+          </div>`;
         }).join('')}
       </div>`,
-
     students: `
-      <div class="nb-card overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-[#FDE047] border-b-2 border-black">
-              <tr>
-                <th class="text-left px-4 py-2.5 font-bold">#</th>
-                <th class="text-left px-4 py-2.5 font-bold">ชื่อ</th>
-                <th class="text-left px-4 py-2.5 font-bold">อีเมล</th>
-                <th class="text-right px-4 py-2.5 font-bold">EXP</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${students.map((s, i) => `
-                <tr class="border-b border-gray-200 last:border-0">
-                  <td class="px-4 py-2.5">${i + 1}</td>
-                  <td class="px-4 py-2.5 font-medium">${s.Avatar || '🧑'} ${esc(s.Name)}</td>
-                  <td class="px-4 py-2.5 text-gray-500 text-xs">${esc(s.Email)}</td>
-                  <td class="px-4 py-2.5 text-right font-bold">${state.ui.expPoints[s.ID] || 0}</td>
-                </tr>`).join('')}
-            </tbody>
-          </table>
-        </div>
-      </div>`
+      <div class="nb-card overflow-hidden"><div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-[#FDE047] border-b-2 border-black"><tr>
+            <th class="text-left px-4 py-2.5 font-bold">#</th>
+            <th class="text-left px-4 py-2.5 font-bold">ชื่อ</th>
+            <th class="text-left px-4 py-2.5 font-bold">อีเมล</th>
+            <th class="text-right px-4 py-2.5 font-bold">EXP</th>
+          </tr></thead>
+          <tbody>
+            ${students.map((s, i) => `<tr class="border-b border-gray-200 last:border-0">
+              <td class="px-4 py-2.5">${i + 1}</td>
+              <td class="px-4 py-2.5 font-medium">${s.Avatar || '🧑'} ${esc(s.Name)}</td>
+              <td class="px-4 py-2.5 text-gray-500 text-xs">${esc(s.Email)}</td>
+              <td class="px-4 py-2.5 text-right font-bold">${state.ui.expPoints[s.ID] || 0}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div></div>`
   };
 
   return `
@@ -1161,71 +918,54 @@ PAGES.classrooms = (param) => {
       <a href="#/classrooms" class="nb-btn nb-btn-w nb-btn-s mb-3">← ห้องเรียนทั้งหมด</a>
       <div class="flex flex-wrap items-center gap-2">
         <h1 class="text-2xl sm:text-3xl font-bold">${esc(room.Name)}</h1>
-        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${subj?.Color || '#eee'}">
-          ${esc(subj?.Name || '-')}
-        </span>
-        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black bg-white">
-          ${room.StudentCount} คน
-        </span>
+        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${subj?.Color || '#eee'}">${esc(subj?.Name || '-')}</span>
+        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black bg-white">${room.StudentCount} คน</span>
       </div>
     </div>
-
     <div class="flex gap-2 mb-4 flex-wrap">
-      ${tabs.map(([k, label]) => `
-        <button class="nb-tab ${tab === k ? 'active' : ''}" data-act="class-tab" data-tab="${k}">${label}</button>
-      `).join('')}
+      ${tabs.map(([k, label]) => `<button class="nb-tab ${tab === k ? 'active' : ''}" data-act="class-tab" data-tab="${k}">${label}</button>`).join('')}
     </div>
-
     ${tabContent[tab] || ''}`;
 };
 
-/* ---------- 8.10 Mental Check-in ---------- */
 PAGES.mental = () => {
   if (!state.loaded) return loadingBlock();
-
   const latest = state.mental.filter(m => m.Date === '2026-01-14');
   const total = latest.length || 1;
   const list = state.students.map(s => {
     const c = state.mental.filter(m => m.StudentID === s.ID).slice(-1)[0];
     return { student: s, checkin: c };
   });
-
   return `
     ${pageHead('เช็กสภาพใจ 💚', 'ภาพรวมอารมณ์และความรู้สึกของนักเรียน',
       `<button class="nb-btn nb-btn-y" data-act="checkin">+ เช็กอินวันนี้</button>`)}
-
     <div class="grid lg:grid-cols-3 gap-4 mb-4">
-
       <div class="lg:col-span-2 nb-card p-4">
         <h2 class="font-bold text-lg mb-4">สัดส่วนอารมณ์วันนี้</h2>
         <div class="flex items-end justify-between gap-2 h-44 px-1">
           ${MOODS.map(m => {
             const c = latest.filter(x => x.Mood === m.key).length;
             const h = Math.max(6, (c / total) * 100);
-            return `
-              <div class="flex-1 flex flex-col items-center justify-end h-full">
-                <div class="text-xs font-bold mb-1">${c}</div>
-                <div class="bar w-full rounded-t-lg border-2 border-black border-b-0" style="height:${h}%;background:${m.color}"></div>
-                <div class="text-lg mt-1">${m.emoji}</div>
-              </div>`;
+            return `<div class="flex-1 flex flex-col items-center justify-end h-full">
+              <div class="text-xs font-bold mb-1">${c}</div>
+              <div class="bar w-full rounded-t-lg border-2 border-black border-b-0" style="height:${h}%;background:${m.color}"></div>
+              <div class="text-lg mt-1">${m.emoji}</div>
+            </div>`;
           }).join('')}
         </div>
         <div class="grid grid-cols-5 gap-1 mt-2">
           ${MOODS.map(m => `<div class="text-[10px] text-center text-gray-600 leading-tight">${m.key}</div>`).join('')}
         </div>
       </div>
-
       <div class="nb-card p-4">
         <h2 class="font-bold text-lg mb-3">สรุป</h2>
         <div class="space-y-2">
           ${MOODS.map(m => {
             const c = latest.filter(x => x.Mood === m.key).length;
-            return `
-              <div class="flex items-center gap-2 text-xs">
-                <span class="text-base">${m.emoji}</span>
-                <span class="flex-1 text-gray-600">${m.key}</span>
-                <span class="font-bold px-2 py-0.5 rounded border-2 border-black" style="background:${m.color}">${c}</span>
-              </div>`;
+            return `<div class="flex items-center gap-2 text-xs">
+              <span class="text-base">${m.emoji}</span><span class="flex-1 text-gray-600">${m.key}</span>
+              <span class="font-bold px-2 py-0.5 rounded border-2 border-black" style="background:${m.color}">${c}</span>
+            </div>`;
           }).join('')}
         </div>
         <div class="mt-4 p-3 rounded-lg border-2 border-black bg-[#FEF9C3] text-[11px] leading-relaxed">
@@ -1233,42 +973,33 @@ PAGES.mental = () => {
         </div>
       </div>
     </div>
-
     <div class="nb-card p-4">
       <h2 class="font-bold text-lg mb-3">สถานะล่าสุดของนักเรียน</h2>
       <div class="space-y-2.5">
         ${list.map(({ student, checkin }) => {
           const mood = checkin ? moodOf(checkin.Mood) : moodOf('บอกไม่ถูก');
-          return `
-            <div class="flex items-center gap-3 p-2.5 rounded-lg border-2 border-black bg-white">
-              <div class="w-9 h-9 rounded-full border-2 border-black grid place-items-center bg-[#F9FAFB] shrink-0">${student.Avatar || '🧑'}</div>
-              <div class="flex-1 min-w-0">
-                <div class="font-bold text-sm truncate">${esc(student.Name)}</div>
-                <div class="text-[11px] text-gray-500 truncate">${esc(checkin?.Notes || 'ไม่มีบันทึกเพิ่มเติม')}</div>
-              </div>
-              <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black shrink-0" style="background:${mood.color}">
-                ${mood.emoji} ${mood.key}
-              </span>
-            </div>`;
+          return `<div class="flex items-center gap-3 p-2.5 rounded-lg border-2 border-black bg-white">
+            <div class="w-9 h-9 rounded-full border-2 border-black grid place-items-center bg-[#F9FAFB] shrink-0">${student.Avatar || '🧑'}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-sm truncate">${esc(student.Name)}</div>
+              <div class="text-[11px] text-gray-500 truncate">${esc(checkin?.Notes || 'ไม่มีบันทึกเพิ่มเติม')}</div>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black shrink-0" style="background:${mood.color}">${mood.emoji} ${mood.key}</span>
+          </div>`;
         }).join('')}
       </div>
     </div>`;
 };
 
-/* ---------- 8.11 Subjects ---------- */
 PAGES.subjects = () => {
   if (!state.loaded) return loadingBlock();
-
   return `
     ${pageHead('วิชา 📚', 'จัดการรายวิชาและบอร์ดการเรียนการสอน',
       `<button class="nb-btn nb-btn-y" data-act="open-subject">+ เพิ่มวิชา</button>`)}
-
     <div class="space-y-2.5">
       ${state.subjects.map(s => `
         <div class="nb-card p-4 flex flex-wrap items-center gap-3">
-          <div class="w-11 h-11 rounded-xl border-2 border-black grid place-items-center text-xl shrink-0" style="background:${s.Color}">
-            ${SUBJ_EMOJI[s.Name] || '📘'}
-          </div>
+          <div class="w-11 h-11 rounded-xl border-2 border-black grid place-items-center text-xl shrink-0" style="background:${s.Color}">${SUBJ_EMOJI[s.Name] || '📘'}</div>
           <div class="flex-1 min-w-0">
             <div class="font-bold truncate">${esc(s.Name)}</div>
             <div class="text-[11px] text-gray-500">
@@ -1286,29 +1017,25 @@ PAGES.subjects = () => {
     </div>`;
 };
 
-/* ---------- 8.12 Template Universe ---------- */
 PAGES.templates = () => {
   const templates = [
-    { icon: '🎧', title: 'การฟัง 1',           tags: ['N5', 'ไฟล์ได้'],      author: 'ครูมีนา',  uses: 128 },
-    { icon: '📝', title: 'สอบย่อยคำศัพท์',      tags: ['N5', 'ปรนัย'],        author: 'ครูสมชาย', uses: 96 },
-    { icon: '🔤', title: 'เติมคำในช่องว่าง',     tags: ['N4', 'ไฟล์ได้'],      author: 'ครูมานี',  uses: 74 },
-    { icon: '🧮', title: 'คณิตคิดเร็ว 20 ข้อ',   tags: ['ป.4', 'ปรนัย'],       author: 'ครูปิติ',  uses: 210 },
-    { icon: '🔬', title: 'รายงานทดลองวิทย์',    tags: ['ม.1', 'ไฟล์ได้'],     author: 'ครูอร',    uses: 45 },
-    { icon: '📖', title: 'อ่านจับใจความ',        tags: ['ป.6', 'อัตนัย'],      author: 'ครูสุดา',  uses: 158 },
-    { icon: '🧩', title: 'บอร์ดบูรณาการ',        tags: ['ทุกระดับ', 'ฟรี'],    author: 'KruBoard', uses: 340 },
-    { icon: '🎯', title: 'เช็กลิสต์พฤติกรรม',    tags: ['ทุกระดับ', 'ฟรี'],    author: 'KruBoard', uses: 88 }
+    { icon: '🎧', title: 'การฟัง 1', tags: ['N5', 'ไฟล์ได้'], author: 'ครูมีนา', uses: 128 },
+    { icon: '📝', title: 'สอบย่อยคำศัพท์', tags: ['N5', 'ปรนัย'], author: 'ครูสมชาย', uses: 96 },
+    { icon: '🔤', title: 'เติมคำในช่องว่าง', tags: ['N4', 'ไฟล์ได้'], author: 'ครูมานี', uses: 74 },
+    { icon: '🧮', title: 'คณิตคิดเร็ว 20 ข้อ', tags: ['ป.4', 'ปรนัย'], author: 'ครูปิติ', uses: 210 },
+    { icon: '🔬', title: 'รายงานทดลองวิทย์', tags: ['ม.1', 'ไฟล์ได้'], author: 'ครูอร', uses: 45 },
+    { icon: '📖', title: 'อ่านจับใจความ', tags: ['ป.6', 'อัตนัย'], author: 'ครูสุดา', uses: 158 },
+    { icon: '🧩', title: 'บอร์ดบูรณาการ', tags: ['ทุกระดับ', 'ฟรี'], author: 'KruBoard', uses: 340 },
+    { icon: '🎯', title: 'เช็กลิสต์พฤติกรรม', tags: ['ทุกระดับ', 'ฟรี'], author: 'KruBoard', uses: 88 }
   ];
-
   return `
     ${pageHead('จักรวาลเทมเพลต 🌌', 'เทมเพลตพร้อมใช้จากครูทั่วประเทศ',
       `<button class="nb-btn nb-btn-y" data-act="coming">+ แชร์เทมเพลตของฉัน</button>`)}
-
     <div class="flex gap-2 mb-4 flex-wrap">
       ${['ทั้งหมด', 'N5', 'N4', 'ปรนัย', 'ไฟล์ได้', 'ฟรี'].map((t, i) => `
         <button class="nb-tab ${i === 0 ? 'active' : ''}" data-act="tpl-tab">${t}</button>
       `).join('')}
     </div>
-
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
       ${templates.map(t => `
         <div class="nb-card p-4 hover:bg-[#FEF9C3] transition cursor-pointer" data-act="coming">
@@ -1326,51 +1053,27 @@ PAGES.templates = () => {
     </div>`;
 };
 
-/* ---------- 8.13 Gradebook ---------- */
-function subjectTasks(subjectId) {
-  const map = {};
-  state.grades.filter(g => g.SubjectID === subjectId).forEach(g => {
-    if (!map[g.TaskName]) {
-      map[g.TaskName] = { TaskName: g.TaskName, TotalScore: Number(g.TotalScore) || 0, PassScore: Number(g.PassScore) || 0, scores: {} };
-    }
-    map[g.TaskName].scores[g.StudentID] = Number(g.ActualScore) || 0;
-  });
-  return Object.values(map);
-}
-
 PAGES.gradebook = (param) => {
   if (!state.loaded) return loadingBlock();
-
-  if (!param) {
-    return `${pageHead('คะแนนเก็บ / ตัดเกรด 🎯', 'เลือกวิชาที่ต้องการจัดการคะแนน')}
-            ${subjectGrid('link', 'gradebook')}`;
-  }
-
+  if (!param) return `${pageHead('คะแนนเก็บ / ตัดเกรด 🎯', 'เลือกวิชาที่ต้องการจัดการคะแนน')}${subjectGrid('link', 'gradebook')}`;
   const subj = state.subjects.find(s => s.ID === param);
   if (!subj) return `${pageHead('ไม่พบวิชา', '')}<div class="nb-card p-8 text-center">🐻 ไม่พบวิชานี้</div>`;
-
   const tasks = subjectTasks(param);
   const students = studentsOfSubject(param);
   const expOn = state.ui.expToggle;
-
   const totalPossible = tasks.reduce((a, t) => a + t.TotalScore, 0);
-
   return `
     <div class="mb-4">
       <a href="#/gradebook" class="nb-btn nb-btn-w nb-btn-s mb-3">← เลือกวิชาใหม่</a>
       <div class="flex flex-wrap items-center gap-2">
         <h1 class="text-2xl sm:text-3xl font-bold">${esc(subj.Name)}</h1>
-        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${subj.Color}">
-          Total Score ${totalPossible}
-        </span>
+        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black" style="background:${subj.Color}">Total Score ${totalPossible}</span>
       </div>
     </div>
-
     <div class="nb-card p-4 mb-4 flex flex-wrap items-center gap-3 justify-between">
       <label class="flex items-center gap-2 cursor-pointer select-none">
         <span class="text-sm font-bold">คะแนนจาก EXP</span>
-        <button data-act="toggle-exp"
-          class="w-12 h-6 rounded-full border-2 border-black relative transition ${expOn ? 'bg-[#FDE047]' : 'bg-gray-200'}">
+        <button data-act="toggle-exp" class="w-12 h-6 rounded-full border-2 border-black relative transition ${expOn ? 'bg-[#FDE047]' : 'bg-gray-200'}">
           <span class="absolute top-0.5 w-4 h-4 rounded-full border-2 border-black bg-white transition-all ${expOn ? 'left-6' : 'left-0.5'}"></span>
         </button>
       </label>
@@ -1379,45 +1082,36 @@ PAGES.gradebook = (param) => {
         <button class="nb-btn nb-btn-y nb-btn-s" data-act="open-grade" data-subject="${param}">+ บันทึกผล</button>
       </div>
     </div>
-
-    <div class="nb-card overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead class="bg-[#FDE047] border-b-2 border-black">
-            <tr>
-              <th class="text-left px-4 py-2.5 font-bold sticky left-0 bg-[#FDE047]">นักเรียน</th>
-              ${tasks.map(t => `<th class="text-center px-3 py-2.5 font-bold whitespace-nowrap">${esc(t.TaskName)}<div class="text-[10px] font-normal">เต็ม ${t.TotalScore}</div></th>`).join('')}
-              <th class="text-right px-4 py-2.5 font-bold whitespace-nowrap">รวม</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${students.map(s => {
-              let sum = 0;
-              const cells = tasks.map(t => {
-                const v = t.scores[s.ID];
-                if (v === undefined) return `<td class="text-center px-3 py-2.5 text-gray-300">-</td>`;
-                sum += v;
-                const pass = v >= t.PassScore;
-                return `<td class="text-center px-3 py-2.5">
-                  <span class="inline-block min-w-[34px] px-2 py-0.5 rounded border-2 border-black font-bold ${pass ? 'bg-[#A7F3D0]' : 'bg-[#FCA5A5]'}">${v}</span>
-                </td>`;
-              }).join('');
-              const expBonus = expOn ? Math.floor((state.ui.expPoints[s.ID] || 0) / 5) : 0;
-              return `
-                <tr class="border-b border-gray-200 last:border-0">
-                  <td class="px-4 py-2.5 font-medium whitespace-nowrap sticky left-0 bg-white">${s.Avatar || '🧑'} ${esc(s.Name)}</td>
-                  ${cells}
-                  <td class="text-right px-4 py-2.5 font-bold whitespace-nowrap">
-                    ${sum}${expBonus ? `<span class="text-[10px] text-green-600"> +${expBonus}</span>` : ''}
-                  </td>
-                </tr>`;
-            }).join('')}
-            ${students.length === 0 ? `<tr><td colspan="${tasks.length + 2}" class="px-4 py-10 text-center text-gray-500">ยังไม่มีนักเรียน</td></tr>` : ''}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
+    <div class="nb-card overflow-hidden"><div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-[#FDE047] border-b-2 border-black"><tr>
+          <th class="text-left px-4 py-2.5 font-bold sticky left-0 bg-[#FDE047]">นักเรียน</th>
+          ${tasks.map(t => `<th class="text-center px-3 py-2.5 font-bold whitespace-nowrap">${esc(t.TaskName)}<div class="text-[10px] font-normal">เต็ม ${t.TotalScore}</div></th>`).join('')}
+          <th class="text-right px-4 py-2.5 font-bold whitespace-nowrap">รวม</th>
+        </tr></thead>
+        <tbody>
+          ${students.map(s => {
+            let sum = 0;
+            const cells = tasks.map(t => {
+              const v = t.scores[s.ID];
+              if (v === undefined) return `<td class="text-center px-3 py-2.5 text-gray-300">-</td>`;
+              sum += v;
+              const pass = v >= t.PassScore;
+              return `<td class="text-center px-3 py-2.5">
+                <span class="inline-block min-w-[34px] px-2 py-0.5 rounded border-2 border-black font-bold ${pass ? 'bg-[#A7F3D0]' : 'bg-[#FCA5A5]'}">${v}</span>
+              </td>`;
+            }).join('');
+            const expBonus = expOn ? Math.floor((state.ui.expPoints[s.ID] || 0) / 5) : 0;
+            return `<tr class="border-b border-gray-200 last:border-0">
+              <td class="px-4 py-2.5 font-medium whitespace-nowrap sticky left-0 bg-white">${s.Avatar || '🧑'} ${esc(s.Name)}</td>
+              ${cells}
+              <td class="text-right px-4 py-2.5 font-bold whitespace-nowrap">${sum}${expBonus ? `<span class="text-[10px] text-green-600"> +${expBonus}</span>` : ''}</td>
+            </tr>`;
+          }).join('')}
+          ${students.length === 0 ? `<tr><td colspan="${tasks.length + 2}" class="px-4 py-10 text-center text-gray-500">ยังไม่มีนักเรียน</td></tr>` : ''}
+        </tbody>
+      </table>
+    </div></div>
     <div class="mt-4 grid sm:grid-cols-3 gap-3">
       ${statCard('งานทั้งหมด', tasks.length, '📋')}
       ${statCard('คะแนนเต็มรวม', totalPossible, '🎯', '#FDE047')}
@@ -1425,34 +1119,27 @@ PAGES.gradebook = (param) => {
     </div>`;
 };
 
-/* ---------- 8.14 Terms / Export ---------- */
 PAGES.terms = () => {
   if (!state.loaded) return loadingBlock();
   const current = state.terms.find(t => t.Status === 'current') || state.terms[0];
-
   const exports = [
-    { type: 'grades',      icon: '🎯', label: 'Export Grades' },
-    { type: 'scores',      icon: '📊', label: 'Export Scores' },
-    { type: 'attendance',  icon: '✅', label: 'Export Attendance' },
-    { type: 'exp',         icon: '⚡', label: 'Export EXP' },
-    { type: 'files',       icon: '📁', label: 'Export Files' },
-    { type: 'exams',       icon: '📝', label: 'Export Exams' }
+    { type: 'grades', icon: '🎯', label: 'Export Grades' },
+    { type: 'scores', icon: '📊', label: 'Export Scores' },
+    { type: 'attendance', icon: '✅', label: 'Export Attendance' },
+    { type: 'exp', icon: '⚡', label: 'Export EXP' },
+    { type: 'files', icon: '📁', label: 'Export Files' },
+    { type: 'exams', icon: '📝', label: 'Export Exams' }
   ];
-
   return `
     ${pageHead('เทอม / Export 📤', 'จัดการภาคเรียนและส่งออกข้อมูล',
       `<button class="nb-btn nb-btn-y" data-act="open-term">+ สร้างเทอมใหม่</button>`)}
-
     <div class="nb-card p-4 mb-4 flex flex-wrap items-center justify-between gap-3" style="background:#FDE047">
       <div>
         <div class="text-[11px] font-bold text-gray-700">เทอมปัจจุบัน</div>
         <div class="text-2xl font-bold">${esc(current?.TermName || '-')}</div>
       </div>
-      <div class="flex gap-2">
-        <span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black bg-white">กำลังเปิด</span>
-      </div>
+      <div class="flex gap-2"><span class="text-[11px] font-bold px-2.5 py-1 rounded-md border-2 border-black bg-white">กำลังเปิด</span></div>
     </div>
-
     <h2 class="font-bold text-lg mb-3">📦 ส่งออกข้อมูล</h2>
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
       ${exports.map(e => `
@@ -1463,7 +1150,6 @@ PAGES.terms = () => {
         </button>
       `).join('')}
     </div>
-
     <h2 class="font-bold text-lg mb-3">📅 เทอมทั้งหมด</h2>
     <div class="space-y-2.5">
       ${state.terms.map(t => `
@@ -1473,94 +1159,70 @@ PAGES.terms = () => {
             <div class="font-bold">${esc(t.TermName)}</div>
             <div class="text-[11px] text-gray-500">${t.Status === 'current' ? 'กำลังใช้งาน' : 'ปิดแล้ว'}</div>
           </div>
-          <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black ${t.Status === 'current' ? 'bg-[#A7F3D0]' : 'bg-gray-200'}">
-            ${t.Status === 'current' ? 'CURRENT' : 'CLOSED'}
-          </span>
+          <span class="text-[10px] font-bold px-2 py-1 rounded border-2 border-black ${t.Status === 'current' ? 'bg-[#A7F3D0]' : 'bg-gray-200'}">${t.Status === 'current' ? 'CURRENT' : 'CLOSED'}</span>
         </div>
       `).join('')}
     </div>`;
 };
 
-/* ---------- 8.15 Insights ---------- */
 PAGES.insights = () => {
   if (!state.loaded) return loadingBlock();
-
   const perSubject = state.subjects.map(s => {
     const rows = state.grades.filter(g => g.SubjectID === s.ID);
     const got = rows.reduce((a, b) => a + Number(b.ActualScore || 0), 0);
     const max = rows.reduce((a, b) => a + Number(b.TotalScore || 0), 0);
     return { subject: s, got, max, pct: max ? Math.round((got / max) * 100) : 0, count: rows.length };
   }).filter(x => x.count > 0);
-
-  const avg = perSubject.length
-    ? Math.round(perSubject.reduce((a, b) => a + b.pct, 0) / perSubject.length)
-    : 0;
-
+  const avg = perSubject.length ? Math.round(perSubject.reduce((a, b) => a + b.pct, 0) / perSubject.length) : 0;
   return `
     ${pageHead('ข้อมูลอินไซต์ 🔎', 'วิเคราะห์ผลการเรียนและพฤติกรรมในห้องเรียน')}
-
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
       ${statCard('คะแนนเฉลี่ย', avg + '%', '📈', '#FDE047')}
       ${statCard('งานที่บันทึก', state.grades.length, '📝')}
       ${statCard('เช็กอินสภาพใจ', state.mental.length, '💚')}
       ${statCard('นักเรียน', state.students.length, '🧑‍🎓')}
     </div>
-
     <div class="grid lg:grid-cols-2 gap-4">
       <div class="nb-card p-4">
         <h2 class="font-bold text-lg mb-4">ผลการเรียนรายวิชา</h2>
         <div class="space-y-3">
           ${perSubject.length ? perSubject.map(x => `
-            <div>
-              <div class="flex justify-between text-xs font-bold mb-1">
-                <span>${esc(x.subject.Name)}</span><span>${x.pct}%</span>
-              </div>
+            <div><div class="flex justify-between text-xs font-bold mb-1"><span>${esc(x.subject.Name)}</span><span>${x.pct}%</span></div>
               <div class="h-4 rounded-full border-2 border-black bg-white overflow-hidden">
                 <div class="h-full" style="width:${x.pct}%;background:${x.pct >= 60 ? '#A7F3D0' : x.pct >= 40 ? '#FDE047' : '#FCA5A5'}"></div>
-              </div>
-            </div>
+              </div></div>
           `).join('') : `<div class="text-sm text-gray-500">ยังไม่มีข้อมูลคะแนน</div>`}
         </div>
       </div>
-
       <div class="nb-card p-4">
         <h2 class="font-bold text-lg mb-4">อารมณ์นักเรียน (สะสม)</h2>
         <div class="space-y-2.5">
           ${MOODS.map(m => {
             const c = state.mental.filter(x => x.Mood === m.key).length;
             const pct = state.mental.length ? Math.round((c / state.mental.length) * 100) : 0;
-            return `
-              <div class="flex items-center gap-2 text-xs">
-                <span class="text-base">${m.emoji}</span>
-                <span class="w-20 text-gray-600">${m.key}</span>
-                <div class="flex-1 h-3.5 rounded-full border-2 border-black bg-white overflow-hidden">
-                  <div class="h-full" style="width:${pct}%;background:${m.color}"></div>
-                </div>
-                <span class="font-bold w-9 text-right">${pct}%</span>
-              </div>`;
+            return `<div class="flex items-center gap-2 text-xs">
+              <span class="text-base">${m.emoji}</span><span class="w-20 text-gray-600">${m.key}</span>
+              <div class="flex-1 h-3.5 rounded-full border-2 border-black bg-white overflow-hidden">
+                <div class="h-full" style="width:${pct}%;background:${m.color}"></div>
+              </div>
+              <span class="font-bold w-9 text-right">${pct}%</span>
+            </div>`;
           }).join('')}
         </div>
         <div class="mt-4 p-3 rounded-lg border-2 border-black bg-[#FEF9C3] text-[11px] leading-relaxed">
-          💡 นักเรียนกลุ่มเสี่ยง ${state.mental.filter(m => ['หนักใจ', 'หนักใจมาก'].includes(m.Mood)).length} ครั้ง
-          ควรมีการติดตามรายบุคคล
+          💡 นักเรียนกลุ่มเสี่ยง ${state.mental.filter(m => ['หนักใจ', 'หนักใจมาก'].includes(m.Mood)).length} ครั้ง ควรมีการติดตามรายบุคคล
         </div>
       </div>
     </div>`;
 };
 
-/* ---------- 8.16 Changelog ---------- */
 PAGES.changelog = () => {
   const items = [
-    { v: 'v1.3.0', date: '15 ม.ค. 2569', tag: 'ใหม่', color: '#A7F3D0',
-      list: ['เพิ่มหน้า “ข้อมูลอินไซต์” วิเคราะห์ผลการเรียน', 'รองรับการ Export ไฟล์ CSV ไปยัง Google Drive', 'ปรับ UI ธีม Neobrutalism ใหม่ทั้งระบบ'] },
-    { v: 'v1.2.0', date: '28 ธ.ค. 2568', tag: 'ปรับปรุง', color: '#FDE047',
-      list: ['เพิ่มระบบเช็กสภาพใจ (Mental Check-in)', 'เพิ่มจักรวาลเทมเพลต 20+ รายการ', 'แก้ไขบั๊กการคำนวณคะแนน EXP'] },
-    { v: 'v1.1.0', date: '10 ธ.ค. 2568', tag: 'ใหม่', color: '#BFDBFE',
-      list: ['เพิ่มระบบห้องเรียนและมุมมองนักเรียน', 'เพิ่มการแจกคะแนน EXP แบบรายบุคคล'] },
-    { v: 'v1.0.0', date: '1 ธ.ค. 2568', tag: 'เริ่มต้น', color: '#E5E7EB',
-      list: ['เปิดตัว KruBoard เวอร์ชันแรก', 'ระบบภารกิจ วิชา และบันทึกผล'] }
+    { v: 'v1.3.0', date: '15 ม.ค. 2569', tag: 'ใหม่', color: '#A7F3D0', list: ['เพิ่มหน้า “ข้อมูลอินไซต์” วิเคราะห์ผลการเรียน', 'รองรับการ Export ไฟล์ CSV ไปยัง Google Drive', 'ปรับ UI ธีม Neobrutalism ใหม่ทั้งระบบ'] },
+    { v: 'v1.2.0', date: '28 ธ.ค. 2568', tag: 'ปรับปรุง', color: '#FDE047', list: ['เพิ่มระบบเช็กสภาพใจ (Mental Check-in)', 'เพิ่มจักรวาลเทมเพลต 20+ รายการ', 'แก้ไขบั๊กการคำนวณคะแนน EXP'] },
+    { v: 'v1.1.0', date: '10 ธ.ค. 2568', tag: 'ใหม่', color: '#BFDBFE', list: ['เพิ่มระบบห้องเรียนและมุมมองนักเรียน', 'เพิ่มการแจกคะแนน EXP แบบรายบุคคล'] },
+    { v: 'v1.0.0', date: '1 ธ.ค. 2568', tag: 'เริ่มต้น', color: '#E5E7EB', list: ['เปิดตัว KruBoard เวอร์ชันแรก', 'ระบบภารกิจ วิชา และบันทึกผล'] }
   ];
-
   return `
     ${pageHead('มีอะไรใหม่ ✨', 'อัปเดตและพัฒนาการของ KruBoard')}
     <div class="space-y-4">
@@ -1579,12 +1241,10 @@ PAGES.changelog = () => {
     </div>`;
 };
 
-/* ---------- 8.17 Referral ---------- */
 PAGES.referral = () => {
   const link = 'https://kruboard.github.io/app?ref=MINA2026';
   return `
     ${pageHead('แนะนำเพื่อน 🎁', 'ชวนเพื่อนครูมาใช้ KruBoard แล้วรับสิทธิพิเศษ')}
-
     <div class="nb-card p-6 mb-4" style="background:#FDE047">
       <div class="text-5xl mb-3">🎁</div>
       <h2 class="text-xl font-bold">ชวนเพื่อนครู รับ 1 เดือน Pro ฟรี!</h2>
@@ -1594,14 +1254,12 @@ PAGES.referral = () => {
         <button class="nb-btn nb-btn-k" data-act="copy-ref">📋 คัดลอก</button>
       </div>
     </div>
-
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
       ${statCard('ลิงก์ที่ถูกคลิก', '34', '👆')}
       ${statCard('สมัครสำเร็จ', '8', '✅', '#A7F3D0')}
       ${statCard('รอตรวจสอบ', '2', '⏳', '#FDE047')}
       ${statCard('เดือนที่ได้รับ', '3', '🏆')}
     </div>
-
     <div class="nb-card p-4">
       <h2 class="font-bold text-lg mb-3">รายชื่อเพื่อนที่แนะนำ</h2>
       <div class="space-y-2">
@@ -1616,7 +1274,6 @@ PAGES.referral = () => {
     </div>`;
 };
 
-/* ---------- 8.18 FAQ ---------- */
 PAGES.faq = () => {
   const faqs = [
     ['KruBoard ใช้ฟรีหรือไม่?', 'ใช้ฟรีสำหรับครูทุกท่าน ไม่จำกัดจำนวนห้องเรียน สูงสุด 100 นักเรียนต่อห้อง'],
@@ -1626,21 +1283,16 @@ PAGES.faq = () => {
     ['ลืมรหัสผ่าน / เข้าใช้งานไม่ได้ ทำอย่างไร?', 'ระบบใช้การล็อกอินด้วย Google Account กรุณาตรวจสอบว่าอีเมลที่ใช้ตรงกับที่ลงทะเบียนไว้'],
     ['สามารถใช้งานร่วมกับครูคนอื่นได้ไหม?', 'ได้ คุณสามารถเชิญครูร่วมสอนเข้าสู่ห้องเรียนเดียวกันได้ (ฟีเจอร์ Pro)']
   ];
-
   return `
     ${pageHead('FAQ ❓', 'คำถามที่พบบ่อยเกี่ยวกับ KruBoard')}
     <div class="space-y-2.5 max-w-3xl">
       ${faqs.map(([q, a]) => `
         <details class="nb-card p-4">
-          <summary class="flex items-center gap-3 font-bold">
-            <span class="flex-1">${q}</span>
-            <span class="chev text-lg">▾</span>
-          </summary>
+          <summary class="flex items-center gap-3 font-bold"><span class="flex-1">${q}</span><span class="chev text-lg">▾</span></summary>
           <p class="text-sm text-gray-600 mt-3 pt-3 border-t-2 border-dashed border-gray-300 leading-relaxed">${a}</p>
         </details>
       `).join('')}
     </div>
-
     <div class="nb-card p-4 mt-5 max-w-3xl flex flex-wrap items-center gap-3">
       <div class="text-3xl">💬</div>
       <div class="flex-1 min-w-0">
@@ -1651,40 +1303,32 @@ PAGES.faq = () => {
     </div>`;
 };
 
-/* ---------- 8.19 Report ---------- */
 PAGES.report = () => {
   return `
     ${pageHead('แจ้งปัญหา 🐞', 'บอกเราถ้าพบปัญหาหรืออยากเสนอไอเดีย')}
-
     <div class="grid sm:grid-cols-2 gap-3 mb-4 max-w-2xl">
       <button class="nb-card p-5 text-left hover:bg-[#FECACA] transition" data-act="report-type" data-type="bug">
-        <div class="text-3xl">🐞</div>
-        <div class="font-bold mt-2">แจ้งบั๊ก</div>
+        <div class="text-3xl">🐞</div><div class="font-bold mt-2">แจ้งบั๊ก</div>
         <div class="text-[11px] text-gray-500 mt-0.5">พบข้อผิดพลาดในการใช้งาน</div>
       </button>
       <button class="nb-card p-5 text-left hover:bg-[#A7F3D0] transition" data-act="report-type" data-type="feedback">
-        <div class="text-3xl">💡</div>
-        <div class="font-bold mt-2">เสนอไอเดีย</div>
+        <div class="text-3xl">💡</div><div class="font-bold mt-2">เสนอไอเดีย</div>
         <div class="text-[11px] text-gray-500 mt-0.5">อยากให้มีฟีเจอร์อะไรเพิ่ม</div>
       </button>
     </div>
-
     <div class="nb-card p-5 max-w-2xl">
       <label class="text-xs font-bold">รายละเอียด</label>
       <textarea id="reportText" rows="5" class="nb-input mt-1" placeholder="อธิบายสิ่งที่เกิดขึ้น..."></textarea>
-
       <label class="text-xs font-bold block mt-3">ความเร่งด่วน</label>
       <select id="reportPriority" class="nb-input mt-1">
         <option value="low">ต่ำ — ไม่กระทบการใช้งาน</option>
         <option value="normal" selected>ปกติ — ใช้งานได้แต่ติดขัด</option>
         <option value="high">สูง — ใช้งานไม่ได้เลย</option>
       </select>
-
       <button class="nb-btn nb-btn-y w-full mt-4" data-act="send-report">📨 ส่งเรื่องถึงทีมงาน</button>
     </div>`;
 };
 
-/* ---------- 8.20 Not found ---------- */
 PAGES.notfound = () => `
   ${pageHead('ไม่พบหน้านี้ 404', '')}
   <div class="nb-card p-10 text-center">
@@ -1694,43 +1338,32 @@ PAGES.notfound = () => `
   </div>`;
 
 /* ============================================================
-   9) ROUTER
+   8) ROUTER
 ============================================================ */
 function parseHash() {
   const raw = location.hash.replace(/^#\/?/, '');
   const parts = raw.split('/').filter(Boolean);
   return { page: parts[0] || 'dashboard', param: parts[1] || null };
 }
-
 function render() {
   const { page, param } = parseHash();
   const view = $('#view');
   const fn = PAGES[page] || PAGES.notfound;
-
   view.innerHTML = fn(param);
-
   $('#pageTitle').textContent = PAGE_TITLES[page] || 'KruBoard';
   $('#breadcrumb').textContent = 'หน้าแรก / ' + (PAGE_TITLES[page] || page);
-
   markActiveNav(page);
   closeSidebarMobile();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
-
 window.addEventListener('hashchange', () => {
-  // reset subject selection when switching pages
-  const { page } = parseHash();
-  if (['attendance', 'exp', 'tools', 'status'].includes(page)) {
-    // keep selection if same page
-  } else {
-    state.ui.sel = {};
-  }
+  state.ui.sel = {};
   state.ui.classTab = 'status';
   render();
 });
 
 /* ============================================================
-   10) MODAL HELPERS
+   9) MODAL
 ============================================================ */
 function openModal(tplId, fill) {
   const tpl = document.getElementById(tplId);
@@ -1742,20 +1375,16 @@ function openModal(tplId, fill) {
   layer.classList.add('flex');
   document.body.style.overflow = 'hidden';
 }
-
 function closeModal() {
   const layer = $('#modalLayer');
   layer.classList.add('hidden');
   layer.classList.remove('flex');
   document.body.style.overflow = '';
 }
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
 /* ============================================================
-   11) SIDEBAR MOBILE
+   10) SIDEBAR MOBILE
 ============================================================ */
 function openSidebarMobile() {
   $('#sidebar').classList.remove('-translate-x-full');
@@ -1769,48 +1398,39 @@ function closeSidebarMobile() {
 }
 
 /* ============================================================
-   12) GLOBAL EVENT DELEGATION
+   11) EVENT DELEGATION  ← ★ แก้เป็น async
 ============================================================ */
-document.addEventListener('click', (e) => {
+document.addEventListener('click', async (e) => {
 
-  /* --- close buttons --- */
   if (e.target.closest('[data-close]')) { closeModal(); return; }
-
-  /* --- sidebar toggles --- */
   if (e.target.closest('#openSidebar')) { openSidebarMobile(); return; }
   if (e.target.closest('#closeSidebar') || e.target.closest('#mobileOverlay')) { closeSidebarMobile(); return; }
 
-  /* --- actions --- */
   const t = e.target.closest('[data-act]');
   if (!t) return;
   const act = t.dataset.act;
 
   switch (act) {
-
-    /* ---------- SUBJECT PICK ---------- */
     case 'pick':
       state.ui.sel[t.dataset.page] = t.dataset.subject;
       render();
       break;
-
     case 'unpick':
       state.ui.sel[t.dataset.page] = null;
       render();
       break;
 
-    /* ---------- MISSIONS ---------- */
     case 'filter-mission':
       state.ui.missionFilter = t.dataset.filter;
       render();
       break;
 
-    case 'open-mission': {
+    case 'open-mission':
       openModal('tpl-mission', (panel) => {
         const sel = panel.querySelector('#f-mission-subject');
         sel.innerHTML = state.subjects.map(s => `<option value="${s.ID}">${esc(s.Name)}</option>`).join('');
       });
       break;
-    }
 
     case 'save-mission': {
       const title = $('#f-mission-title').value.trim();
@@ -1825,7 +1445,6 @@ document.addEventListener('click', (e) => {
       break;
     }
 
-    /* ---------- ATTENDANCE ---------- */
     case 'cycle-att': {
       const key = t.dataset.subject + '-' + t.dataset.student;
       const order = ['present', 'late', 'absent'];
@@ -1839,7 +1458,6 @@ document.addEventListener('click', (e) => {
       toast('บันทึกการเช็กชื่อเรียบร้อย ✅');
       break;
 
-    /* ---------- EXP ---------- */
     case 'give-exp': {
       const id = t.dataset.student;
       state.ui.expPoints[id] = (state.ui.expPoints[id] || 0) + Number(t.dataset.pts);
@@ -1848,22 +1466,19 @@ document.addEventListener('click', (e) => {
       break;
     }
 
-    /* ---------- CLASSROOM ---------- */
     case 'class-tab':
       state.ui.classTab = t.dataset.tab;
       render();
       break;
 
-    /* ---------- GRADEBOOK ---------- */
     case 'toggle-exp':
       state.ui.expToggle = !state.ui.expToggle;
       render();
       break;
 
-    case 'open-grade': {
+    case 'open-grade':
       openModal('tpl-grade');
       break;
-    }
 
     case 'save-grade': {
       const task = $('#f-grade-task').value.trim();
@@ -1872,14 +1487,9 @@ document.addEventListener('click', (e) => {
       const subjectId = state.ui.sel.gradebook || t.dataset.subject ||
                         (parseHash().page === 'gradebook' ? parseHash().param : null) ||
                         state.subjects[0]?.ID;
-
       if (!task) { toast('กรุณากรอกชื่องาน', 'err'); break; }
       if (pass > total) { toast('คะแนนผ่านต้องไม่เกินคะแนนเต็ม', 'err'); break; }
-
-      const created = await api('saveGrade', {
-        SubjectID: subjectId, TaskName: task, TotalScore: total, PassScore: pass
-      }, 'POST');
-
+      const created = await api('saveGrade', { SubjectID: subjectId, TaskName: task, TotalScore: total, PassScore: pass }, 'POST');
       if (Array.isArray(created)) state.grades.push(...created);
       closeModal();
       toast('บันทึกผลสำเร็จ 🎯');
@@ -1887,12 +1497,10 @@ document.addEventListener('click', (e) => {
       break;
     }
 
-    /* ---------- SUBJECTS ---------- */
-    case 'open-subject': {
+    case 'open-subject':
       state.ui.editingSubject = null;
       openModal('tpl-subject', (panel) => paintColorPicker(panel, '#FDE047'));
       break;
-    }
 
     case 'edit-subject': {
       const s = state.subjects.find(x => x.ID === t.dataset.id);
@@ -1908,7 +1516,6 @@ document.addEventListener('click', (e) => {
       const name = $('#f-subject-name').value.trim();
       const color = $('#f-subject-colors').dataset.color || '#FDE047';
       if (!name) { toast('กรุณากรอกชื่อวิชา', 'err'); break; }
-
       if (state.ui.editingSubject) {
         const updated = await api('updateSubject', { ID: state.ui.editingSubject.ID, Name: name, Color: color }, 'POST');
         const i = state.subjects.findIndex(x => x.ID === state.ui.editingSubject.ID);
@@ -1944,7 +1551,6 @@ document.addEventListener('click', (e) => {
       toast('สร้างบอร์ดการเรียนการสอนแล้ว 📋');
       break;
 
-    /* ---------- TERMS ---------- */
     case 'open-term':
       openModal('tpl-term');
       break;
@@ -1962,21 +1568,17 @@ document.addEventListener('click', (e) => {
       break;
     }
 
-    /* ---------- EXPORT ---------- */
     case 'export': {
       const type = t.dataset.type;
       toast('กำลังสร้างไฟล์... ⏳');
       const res = await api('exportData', { type, term: '2/2569' }, 'POST');
       setTimeout(() => {
         toast(`Export ${type} สำเร็จ — ${res.rows ?? ''} แถว 📤`);
-        if (res.downloadUrl && res.downloadUrl !== '#') {
-          window.open(res.downloadUrl, '_blank');
-        }
+        if (res.downloadUrl && res.downloadUrl !== '#') window.open(res.downloadUrl, '_blank');
       }, 600);
       break;
     }
 
-    /* ---------- MISC ---------- */
     case 'copy-ref': {
       const input = $('#refLink');
       input.select();
@@ -1986,29 +1588,12 @@ document.addEventListener('click', (e) => {
       break;
     }
 
-    case 'tool':
-      toast(`เปิดเครื่องมือ: ${t.dataset.name} 🧰`);
-      break;
-
-    case 'notify':
-      toast('จะแจ้งเตือนเมื่อฟีเจอร์พร้อม 🔔');
-      break;
-
-    case 'coming':
-      toast('ฟีเจอร์นี้กำลังจะมาเร็วๆ นี้ ✨');
-      break;
-
-    case 'tpl-tab':
-      toast('ตัวกรองเทมเพลต (ตัวอย่าง) 🌌');
-      break;
-
-    case 'checkin':
-      toast('เปิดแบบฟอร์มเช็กอินสภาพใจ 💚');
-      break;
-
-    case 'report-type':
-      toast(t.dataset.type === 'bug' ? 'เลือกประเภท: แจ้งบั๊ก 🐞' : 'เลือกประเภท: เสนอไอเดีย 💡');
-      break;
+    case 'tool': toast(`เปิดเครื่องมือ: ${t.dataset.name} 🧰`); break;
+    case 'notify': toast('จะแจ้งเตือนเมื่อฟีเจอร์พร้อม 🔔'); break;
+    case 'coming': toast('ฟีเจอร์นี้กำลังจะมาเร็วๆ นี้ ✨'); break;
+    case 'tpl-tab': toast('ตัวกรองเทมเพลต (ตัวอย่าง) 🌌'); break;
+    case 'checkin': toast('เปิดแบบฟอร์มเช็กอินสภาพใจ 💚'); break;
+    case 'report-type': toast(t.dataset.type === 'bug' ? 'เลือกประเภท: แจ้งบั๊ก 🐞' : 'เลือกประเภท: เสนอไอเดีย 💡'); break;
 
     case 'send-report': {
       const text = $('#reportText').value.trim();
@@ -2020,7 +1605,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/* color picker สำหรับ modal วิชา */
 function paintColorPicker(panel, current) {
   const colors = ['#FDE047', '#A7F3D0', '#BFDBFE', '#FBCFE8', '#FED7AA', '#E5E7EB', '#C4B5FD', '#99F6E4'];
   const wrap = panel.querySelector('#f-subject-colors');
@@ -2030,7 +1614,6 @@ function paintColorPicker(panel, current) {
       style="background:${c};box-shadow:${c === current ? '3px 3px 0 #000' : '1px 1px 0 #000'}"
       data-color="${c}">${c === current ? '✓' : ''}</button>
   `).join('');
-
   wrap.addEventListener('click', (ev) => {
     const btn = ev.target.closest('[data-color]');
     if (!btn) return;
@@ -2039,36 +1622,42 @@ function paintColorPicker(panel, current) {
 }
 
 /* ============================================================
-   13) BOOT
+   12) BOOT  ← ★ fallback ถ้า DB ว่าง
 ============================================================ */
 async function init() {
   renderSidebar();
-
-  // initial paint (loading skeleton)
   render();
 
   const [users, students, subjects, classrooms, missions, grades, mental, terms] = await Promise.all([
-    api('getUsers'),
-    api('getStudents'),
-    api('getSubjects'),
-    api('getClassrooms'),
-    api('getMissions'),
-    api('getGrades'),
-    api('getMentalCheckins'),
-    api('getTerms')
+    api('getUsers'), api('getStudents'), api('getSubjects'),
+    api('getClassrooms'), api('getMissions'), api('getGrades'),
+    api('getMentalCheckins'), api('getTerms')
   ]);
 
-  state.user       = users.find(u => u.Role === 'teacher') || users[0];
-  state.students   = students;
-  state.subjects   = subjects;
-  state.classrooms = classrooms;
-  state.missions   = missions;
-  state.grades     = grades;
-  state.mental     = mental;
-  state.terms      = terms;
-  state.loaded     = true;
+  // ★ ถ้า Sheet ว่าง → ใช้ mock ชั่วคราว
+  const dbEmpty = users.length === 0 && subjects.length === 0;
+  if (dbEmpty && !CONFIG.USE_MOCK) {
+    toast('ฐานข้อมูลว่าง — ใช้ข้อมูลตัวอย่างชั่วคราว (รัน seedDemoData() ใน Apps Script เพื่อบันทึกข้อมูลจริง)', 'warn');
+    state.user = MOCK.Users[0];
+    state.students = MOCK.Users.filter(u => u.Role === 'student');
+    state.subjects = MOCK.Subjects;
+    state.classrooms = MOCK.Classrooms;
+    state.missions = MOCK.Missions;
+    state.grades = MOCK.Grades;
+    state.mental = MOCK.MentalCheckins;
+    state.terms = MOCK.Terms;
+  } else {
+    state.user = users.find(u => u.Role === 'teacher') || users[0] || MOCK.Users[0];
+    state.students = students;
+    state.subjects = subjects;
+    state.classrooms = classrooms;
+    state.missions = missions;
+    state.grades = grades;
+    state.mental = mental;
+    state.terms = terms;
+  }
+  state.loaded = true;
 
-  // header user chip
   $('#userName').textContent = state.user?.Name || 'ครู';
   $('#userRole').textContent = state.user?.Role === 'teacher' ? 'ครูผู้สอน' : 'นักเรียน';
   const chip = $('#userChip').querySelector('div');
